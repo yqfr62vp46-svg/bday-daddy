@@ -560,11 +560,11 @@ export default function App() {
                 </p>
               );
             })}
-            <div ref={bottomRef} className="mt-1 inline-block h-3 w-2 animate-pulse bg-green-500" />
+            <div ref={bottomRef} className="mt-1 inline-block h-3 w-2 animate-pulse bg-black-500" />
           </div>
           <button
             onClick={() => setStep(2)}
-            className="absolute bottom-6 right-6 z-50 text-[10px] text-green-500/30 underline hover:text-green-500"
+            className="absolute bottom-6 right-6 z-50 text-[10px] text-black-500/30 underline hover:text-green-500"
           >
             [강제 접속하기]
           </button>
