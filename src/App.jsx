@@ -268,8 +268,11 @@ function CakeScene({ cakeStep, setIsLetterOpen, setStep }) {
   return (
     <div className="relative min-h-[100dvh] overflow-x-hidden bg-gradient-to-b from-[#31446f] via-[#7f92bc] to-[#dbe4f5] p-5 pb-12 flex flex-col items-center justify-center text-center">
       
+      {/* 1. 은은한 케이크 후광 (Spotlight Glow) */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[40%] w-[90vw] max-w-[600px] h-[600px] bg-white/20 blur-[100px] rounded-full pointer-events-none" />
+
       <div
-        className={`transition-all duration-1000 w-full ${
+        className={`transition-all duration-1000 w-full z-10 ${
           cakeStep >= 10 ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0'
         }`}
       >
@@ -283,7 +286,7 @@ function CakeScene({ cakeStep, setIsLetterOpen, setStep }) {
         </p>
       </div>
 
-      <div className="relative h-[440px] w-full max-w-[340px] shrink-0 select-none mt-4">
+      <div className="relative h-[440px] w-full max-w-[340px] shrink-0 select-none mt-4 z-10">
         <SyrupGlass show={cakeStep >= 5 && cakeStep < 8} pour={cakeStep >= 6 && cakeStep < 8} />
 
         <div
@@ -512,6 +515,12 @@ export default function App() {
         .animate-float { animation: float 3s ease-in-out infinite; }
         .animate-flame { animation: flame 0.5s ease-in-out infinite; }
         .animate-wiggle:hover { animation: wiggle 0.4s ease-in-out infinite; }
+        
+        /* 편지 스크롤바 커스텀 디자인 */
+        .letter-scroll::-webkit-scrollbar { width: 6px; }
+        .letter-scroll::-webkit-scrollbar-track { background: transparent; }
+        .letter-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .letter-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
       `}</style>
 
       {step === 1 && (
@@ -587,11 +596,12 @@ export default function App() {
                 <HeartSprinkle color="#ef233c" className="absolute bottom-5 right-6 z-30 h-7 w-7 rotate-12 drop-shadow-sm" />
 
                 {/* 편지지 그림자 더 진하게 입체감 강화 */}
-                <div className="relative mt-12 rounded-2xl bg-white/70 p-5 text-left text-[15px] leading-[2rem] text-[#334155] shadow-[0_20px_40px_rgba(0,0,0,0.25)] border border-white/60 backdrop-blur-md">
+                <div className="relative mt-12 rounded-2xl bg-white/70 p-5 text-left text-[14px] leading-[2rem] text-[#334155] shadow-[0_20px_40px_rgba(0,0,0,0.25)] border border-white/60 backdrop-blur-md">
                   <div className="absolute -top-4 left-1/2 h-7 w-24 -translate-x-1/2 rotate-[-3deg] rounded-sm bg-blue-600/90 shadow-sm backdrop-blur-sm" />
                   <div className="absolute -top-4 left-[45%] h-8 w-22 -translate-x-1/2 rotate-[5deg] rounded-sm bg-sky-200/90 shadow-sm backdrop-blur-sm opacity-90" />
                   
-                  <div className="relative z-10 font-bold tracking-wide">
+                  {/* 스크롤 가능한 편지 내용 영역 */}
+                  <div className="relative z-10 font-bold tracking-wide max-h-[360px] overflow-y-auto letter-scroll pr-2">
                     {letterContent.split('\n').map((line, idx) => (
                       <p key={idx} className="min-h-[2.2rem] whitespace-pre-wrap">{line}</p>
                     ))}
