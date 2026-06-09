@@ -47,14 +47,7 @@ function Strawberry({ className = '', delay = '0ms' }) {
         <circle cx="35" cy="37" r="1.2" fill="#fde68a" />
         <circle cx="24" cy="44" r="1.2" fill="#fde68a" />
         <circle cx="24" cy="28" r="1.2" fill="#fde68a" opacity="0.8" />
-        <path
-          fill="none"
-          stroke="#fff7ed"
-          strokeLinecap="round"
-          strokeWidth="3"
-          opacity="0.38"
-          d="M14 18 C11 24, 10 30, 12 36"
-        />
+        <path fill="none" stroke="#fff7ed" strokeLinecap="round" strokeWidth="3" opacity="0.38" d="M14 18 C11 24, 10 30, 12 36" />
       </svg>
     </div>
   );
@@ -90,6 +83,32 @@ function HeartSprinkle({ color = '#ff7096', className = '' }) {
   );
 }
 
+// 요청하신 XAML 디자인을 React SVG로 변환
+function WhiteDog({ className = "" }) {
+  return (
+    <div className={`relative ${className}`}>
+      <svg viewBox="0 0 600 600" className="w-full h-full overflow-visible drop-shadow-md">
+        <path d="M300,180 C300,100 220,70 170,70 C90,70 50,130 50,210 C50,320 150,390 300,510 C450,390 550,320 550,210 C550,130 510,70 430,70 C380,70 300,100 300,180 Z" fill="#F8B8B8" stroke="#F08A8A" strokeWidth="6" />
+        <ellipse cx="300" cy="305" rx="160" ry="125" fill="#EEEEEE" stroke="#333333" strokeWidth="5" />
+        <path d="M150,250 C100,280 90,350 130,390 C170,430 220,420 240,390 C220,330 200,290 150,250 Z" fill="#EEEEEE" stroke="#333333" strokeWidth="5" />
+        <path d="M450,250 C500,280 510,350 470,390 C430,430 380,420 360,390 C380,330 400,290 450,250 Z" fill="#EEEEEE" stroke="#333333" strokeWidth="5" />
+        <path d="M220,400 L380,400 C390,430 395,500 380,540 C360,560 330,560 300,550 C270,560 240,560 220,540 C205,500 210,430 220,400 Z" fill="#EEEEEE" stroke="#333333" strokeWidth="5" />
+        <ellipse cx="197" cy="452" rx="22" ry="27" fill="#EEEEEE" stroke="#333333" strokeWidth="4" />
+        <ellipse cx="402" cy="452" rx="22" ry="27" fill="#EEEEEE" stroke="#333333" strokeWidth="4" />
+        <ellipse cx="242" cy="312" rx="17" ry="27" fill="#444444" />
+        <rect x="242" y="309" width="20" height="6" rx="3" fill="white" />
+        <ellipse cx="357" cy="312" rx="17" ry="27" fill="#444444" />
+        <rect x="357" y="309" width="20" height="6" rx="3" fill="white" />
+        <ellipse cx="300" cy="330" rx="5" ry="5" fill="#333333" />
+        <ellipse cx="207" cy="350" rx="27" ry="20" fill="#F7C9CF" opacity="0.9" />
+        <ellipse cx="392" cy="350" rx="27" ry="20" fill="#F7C9CF" opacity="0.9" />
+        <path d="M270,345 C285,360 315,360 330,345" stroke="#333333" strokeWidth="4" fill="none" />
+        <path d="M295,350 C290,375 310,375 305,350 Z" fill="#F59AA8" stroke="#333333" strokeWidth="2" />
+      </svg>
+    </div>
+  );
+}
+
 function CreamTier({ width, height, top, zIndex, stepReady, syrupReady, delay = '0ms', children }) {
   const sideGradient = `cakeSide-${width}`;
   const topGradient = `cakeTop-${width}`;
@@ -120,17 +139,9 @@ function CreamTier({ width, height, top, zIndex, stepReady, syrupReady, delay = 
             <stop offset="1" stopColor="#d19555" />
           </linearGradient>
         </defs>
-        
-        <path
-          fill={`url(#${sideGradient})`}
-          d="M24 42C24 68 67 86 160 86C253 86 296 68 296 42L296 101C296 134 247 151 160 151C73 151 24 134 24 101Z"
-        />
+        <path fill={`url(#${sideGradient})`} d="M24 42C24 68 67 86 160 86C253 86 296 68 296 42L296 101C296 134 247 151 160 151C73 151 24 134 24 101Z" />
         <ellipse cx="160" cy="104" rx="136" ry="45" fill="#7c451f" opacity="0.16" />
-        <path
-          fill="#c37c3c"
-          opacity="0.24"
-          d="M49 92C84 110 124 118 170 116C220 114 258 101 289 84L289 99C254 122 210 134 160 134C107 134 69 121 49 103Z"
-        />
+        <path fill="#c37c3c" opacity="0.24" d="M49 92C84 110 124 118 170 116C220 114 258 101 289 84L289 99C254 122 210 134 160 134C107 134 69 121 49 103Z" />
         <ellipse cx="160" cy="42" rx="146" ry="38" fill="#fff8e8" />
         <ellipse cx="160" cy="45" rx="124" ry="29" fill={`url(#${topGradient})`} />
         <ellipse cx="160" cy="35" rx="96" ry="15" fill="#fffdf8" opacity="0.72" />
@@ -146,29 +157,9 @@ function CreamTier({ width, height, top, zIndex, stepReady, syrupReady, delay = 
       >
         <g className="drop-shadow-[0_5px_4px_rgba(40,15,10,0.3)]">
           <ellipse cx="160" cy="42" rx="145" ry="37" fill="#4a2116" />
-          <path
-            fill="#35150f"
-            d="M 15 42
-               C 15 55, 25 70, 40 55
-               C 50 135, 90 135, 100 65
-               C 115 100, 140 100, 150 60
-               C 160 140, 195 140, 205 65
-               C 215 85, 235 85, 245 60
-               C 255 115, 285 115, 295 50
-               C 300 60, 305 50, 305 42 Z"
-          />
+          <path fill="#35150f" d="M 15 42 C 15 55, 25 70, 40 55 C 50 135, 90 135, 100 65 C 115 100, 140 100, 150 60 C 160 140, 195 140, 205 65 C 215 85, 235 85, 245 60 C 255 115, 285 115, 295 50 C 300 60, 305 50, 305 42 Z" />
           <ellipse cx="160" cy="40" rx="132" ry="31" fill="#5c2a1c" />
-          <path
-            fill="#4a2116"
-            d="M 25 40
-               C 25 50, 32 60, 42 50
-               C 55 120, 80 120, 92 60
-               C 105 90, 130 90, 142 55
-               C 152 125, 182 125, 195 60
-               C 205 75, 225 75, 235 55
-               C 245 100, 270 100, 282 48
-               C 287 55, 295 45, 295 40 Z"
-          />
+          <path fill="#4a2116" d="M 25 40 C 25 50, 32 60, 42 50 C 55 120, 80 120, 92 60 C 105 90, 130 90, 142 55 C 152 125, 182 125, 195 60 C 205 75, 225 75, 235 55 C 245 100, 270 100, 282 48 C 287 55, 295 45, 295 40 Z" />
         </g>
       </svg>
       <div className="absolute inset-x-0 top-[26%] z-20 flex items-center justify-center pointer-events-none">
@@ -185,7 +176,6 @@ function SyrupGlass({ show, pour }) {
         show ? 'translate-y-0 opacity-100' : '-translate-y-16 opacity-0'
       }`}
     >
-      {/* 도자기 피처 (하얀색 둥근 크리머 컵) */}
       <div
         className={`absolute right-0 top-0 h-28 w-32 transition-all duration-700 ease-out origin-[center_60%] ${
           pour ? '-translate-x-12 translate-y-6 -rotate-[35deg]' : 'rotate-0'
@@ -209,7 +199,6 @@ function SyrupGlass({ show, pour }) {
         </svg>
       </div>
 
-      {/* 자연스러운 곡선으로 흐르는 짧은 초코 시럽 */}
       <svg
         className={`absolute left-[-90px] top-[80px] h-[70px] w-24 origin-top transition-all duration-500 ease-in ${
           pour ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
@@ -224,22 +213,8 @@ function SyrupGlass({ show, pour }) {
             <stop offset="100%" stopColor="#2c1008" />
           </linearGradient>
         </defs>
-        <path
-          d="M 30 0 C 40 35, 10 65, 20 100"
-          fill="none"
-          stroke="url(#syrupPour)"
-          strokeWidth="8"
-          strokeLinecap="round"
-          className="drop-shadow-[0_2px_4px_rgba(74,36,24,0.4)]"
-        />
-        <path
-          d="M 29 5 C 38 35, 12 65, 20 95"
-          fill="none"
-          stroke="#7c3a21"
-          strokeWidth="2"
-          strokeLinecap="round"
-          opacity="0.8"
-        />
+        <path d="M 30 0 C 40 35, 10 65, 20 100" fill="none" stroke="url(#syrupPour)" strokeWidth="8" strokeLinecap="round" className="drop-shadow-[0_2px_4px_rgba(74,36,24,0.4)]" />
+        <path d="M 29 5 C 38 35, 12 65, 20 95" fill="none" stroke="#7c3a21" strokeWidth="2" strokeLinecap="round" opacity="0.8" />
       </svg>
     </div>
   );
@@ -256,7 +231,6 @@ function HeartLetter({ className = '' }) {
         <path d="M 0 0 L 120 0 L 60 45 Z" fill="#f8fafc" />
         <path d="M 0 0 L 60 45 L 120 0" fill="none" stroke="#e2e8f0" strokeWidth="1.5" />
       </svg>
-      {/* 하트 스티커 크게 확대 */}
       <div className="absolute left-1/2 top-[42px] -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_2px_4px_rgba(239,35,60,0.4)]">
         <HeartSprinkle color="#ef233c" className="h-8 w-8 scale-[1.5]" />
       </div>
@@ -265,10 +239,10 @@ function HeartLetter({ className = '' }) {
 }
 
 function CakeScene({ cakeStep, setIsLetterOpen, setStep }) {
-  const syrupReady = cakeStep >= 6;
-  const sprinklesReady = cakeStep >= 7;
-  const strawberriesReady = cakeStep >= 8;
-  const candlesReady = cakeStep >= 9;
+  const syrupReady = cakeStep >= 7;
+  const sprinklesReady = cakeStep >= 8;
+  const strawberriesReady = cakeStep >= 9;
+  const candlesReady = cakeStep >= 10;
 
   const [isCandleLit, setIsCandleLit] = useState(true);
 
@@ -286,10 +260,9 @@ function CakeScene({ cakeStep, setIsLetterOpen, setStep }) {
   return (
     <div className="relative min-h-[100dvh] overflow-x-hidden bg-gradient-to-b from-[#31446f] via-[#7f92bc] to-[#dbe4f5] p-5 pb-12 flex flex-col items-center justify-center text-center">
       
-      {/* 텍스트의 하트 깜빡임(animate-pulse) 제거 */}
       <div
         className={`transition-all duration-1000 w-full ${
-          cakeStep >= 9 ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0'
+          cakeStep >= 10 ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0'
         }`}
       >
         <h1 className="text-4xl font-extrabold leading-tight tracking-normal text-white drop-shadow-[0_3px_10px_rgba(18,28,54,0.35)]">
@@ -303,13 +276,12 @@ function CakeScene({ cakeStep, setIsLetterOpen, setStep }) {
       </div>
 
       <div className="relative h-[440px] w-full max-w-[340px] shrink-0 select-none mt-4">
-        <SyrupGlass show={cakeStep >= 4 && cakeStep < 7} pour={cakeStep >= 5 && cakeStep < 7} />
+        <SyrupGlass show={cakeStep >= 5 && cakeStep < 8} pour={cakeStep >= 6 && cakeStep < 8} />
 
         <div
           className={`absolute left-1/2 -translate-x-1/2 z-40 transition-all duration-700`}
           style={{ top: '62px', width: '120px', height: '80px' }}
         >
-          {/* 촛불 위치 상향 조정 (bottom-8) */}
           <div
             className={`absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer ${popAnim} ${
               candlesReady ? 'translate-y-0 opacity-100' : '-translate-y-16 opacity-0'
@@ -336,9 +308,9 @@ function CakeScene({ cakeStep, setIsLetterOpen, setStep }) {
           </div>
         </div>
 
-        <CreamTier width={158} height={92} top="100px" zIndex={30} stepReady={cakeStep >= 3} syrupReady={syrupReady} delay="80ms" />
+        <CreamTier width={158} height={92} top="100px" zIndex={30} stepReady={cakeStep >= 4} syrupReady={syrupReady} delay="80ms" />
 
-        <CreamTier width={226} height={108} top="160px" zIndex={20} stepReady={cakeStep >= 2} syrupReady={syrupReady} delay="40ms">
+        <CreamTier width={226} height={108} top="160px" zIndex={20} stepReady={cakeStep >= 3} syrupReady={syrupReady} delay="40ms">
           <div className={`flex gap-5 opacity-90 ${popAnim} ${sprinklesReady ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}>
             <HeartSprinkle color="#fb7185" className="translate-y-2 -rotate-12 scale-110" />
             <HeartSprinkle color="#fde047" className="-translate-y-2 rotate-6" />
@@ -347,7 +319,7 @@ function CakeScene({ cakeStep, setIsLetterOpen, setStep }) {
           </div>
         </CreamTier>
 
-        <CreamTier width={292} height={128} top="220px" zIndex={10} stepReady={cakeStep >= 1} syrupReady={syrupReady} delay="0ms">
+        <CreamTier width={292} height={128} top="220px" zIndex={10} stepReady={cakeStep >= 2} syrupReady={syrupReady} delay="0ms">
           <div className={`flex gap-7 opacity-95 ${popAnim} ${sprinklesReady ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}>
             <HeartSprinkle color="#fb7185" className="-translate-y-2 rotate-12" />
             <HeartSprinkle color="#f472b6" className="translate-y-4 -rotate-[20deg] scale-110" />
@@ -357,9 +329,8 @@ function CakeScene({ cakeStep, setIsLetterOpen, setStep }) {
           </div>
         </CreamTier>
 
-        {/* 우아하고 고급스러운 3D 도자기 케이크 스탠드 */}
         <div
-          className={`absolute left-1/2 -translate-x-1/2 top-[280px] z-0 transition-all duration-700 ${popAnim} ${
+          className={`absolute left-1/2 -translate-x-1/2 top-[270px] z-0 transition-all duration-700 ${popAnim} ${
             cakeStep >= 1 ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
           }`}
           style={{ width: 'min(380px, 100vw)', height: '160px' }}
@@ -377,25 +348,17 @@ function CakeScene({ cakeStep, setIsLetterOpen, setStep }) {
                 <stop offset="100%" stopColor="#94a3b8" />
               </linearGradient>
             </defs>
-            
-            {/* 스탠드 기둥(받침대) */}
             <path d="M 150 70 C 150 110, 110 130, 110 140 C 110 150, 270 150, 270 140 C 270 130, 230 110, 230 70 Z" fill="url(#standBase)" />
-            {/* 바닥 그림자 및 밑판 */}
             <ellipse cx="190" cy="140" rx="80" ry="12" fill="#94a3b8" />
             <ellipse cx="190" cy="137" rx="80" ry="12" fill="#f8fafc" />
-            
-            {/* 윗접시 외곽(두께감) */}
             <ellipse cx="190" cy="70" rx="180" ry="45" fill="url(#plateEdge)" />
-            {/* 윗접시 상단면 */}
             <ellipse cx="190" cy="62" rx="180" ry="45" fill="#f1f5f9" />
-            {/* 윗접시 안쪽 파인 부분(케이크 놓이는 곳) */}
             <ellipse cx="190" cy="62" rx="160" ry="38" fill="#ffffff" />
             <ellipse cx="190" cy="62" rx="160" ry="38" fill="none" stroke="#e2e8f0" strokeWidth="2" />
           </svg>
         </div>
       </div>
 
-      {/* 촛불을 껐을 때(!isCandleLit) 비로소 나타나는 편지 버튼 */}
       <div className={`mt-4 h-24 flex items-end justify-center w-full transition-all duration-700 ${
         !isCandleLit ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0 pointer-events-none'
       }`}>
@@ -409,7 +372,6 @@ function CakeScene({ cakeStep, setIsLetterOpen, setStep }) {
           </span>
         </button>
       </div>
-
     </div>
   );
 }
@@ -422,6 +384,10 @@ export default function App() {
   const [isLetterOpen, setIsLetterOpen] = useState(false);
   const [cakeStep, setCakeStep] = useState(0);
   const bottomRef = useRef(null);
+
+  const [letterContent, setLetterContent] = useState(
+    "To. 사랑하는 주인님\n\n비밀번호를 완벽하게 맞췄네. 역시 최고야!\n\n여기는 아가가 준비한 생일 축하 비밀 편지야.\n태어나줘서 고맙고, 매일 든든하고 소중한 우리 아빠!\n오늘은 세상에서 제일 행복하고 달콤한 하루를 보내길 바라.\n\n- 아가가 -"
+  );
 
   const bootLines = useMemo(() => {
     const lines = [];
@@ -486,9 +452,16 @@ export default function App() {
   useEffect(() => {
     if (step === 3) {
       const schedule = [
-        { s: 1, t: 300 }, { s: 2, t: 800 }, { s: 3, t: 1300 }, { s: 4, t: 1800 },
-        { s: 5, t: 2400 }, { s: 6, t: 3200 }, { s: 7, t: 4000 }, { s: 8, t: 4700 },
-        { s: 9, t: 5400 }, { s: 10, t: 6200 },
+        { s: 1, t: 300 },
+        { s: 2, t: 1000 },
+        { s: 3, t: 1500 },
+        { s: 4, t: 2000 },
+        { s: 5, t: 2600 },
+        { s: 6, t: 3400 },
+        { s: 7, t: 4200 },
+        { s: 8, t: 4900 },
+        { s: 9, t: 5600 },
+        { s: 10, t: 6300 },
       ];
 
       const timers = schedule.map(({ s, t }) => setTimeout(() => setCakeStep(s), t));
@@ -500,7 +473,7 @@ export default function App() {
           origin: { y: 0.36 },
           zIndex: 9999,
         });
-      }, 5400);
+      }, 6300);
 
       return () => {
         timers.forEach(clearTimeout);
@@ -511,7 +484,7 @@ export default function App() {
 
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
-    if (password === '19920620') { // 암호 변경 19920620
+    if (password === '19920620') {
       setStep(3);
     } else if (password === '0420') {
       setStep(4);
@@ -525,19 +498,9 @@ export default function App() {
   return (
     <>
       <style>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-8px); }
-        }
-        @keyframes flame {
-          0%, 100% { transform: scale(1) rotate(-3deg); }
-          50% { transform: scale(1.15) rotate(4deg); }
-        }
-        @keyframes wiggle {
-          0%, 100% { transform: rotate(0deg); }
-          25% { transform: rotate(-10deg); }
-          75% { transform: rotate(10deg); }
-        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes flame { 0%, 100% { transform: scale(1) rotate(-3deg); } 50% { transform: scale(1.15) rotate(4deg); } }
+        @keyframes wiggle { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-10deg); } 75% { transform: rotate(10deg); } }
         .animate-float { animation: float 3s ease-in-out infinite; }
         .animate-flame { animation: flame 0.5s ease-in-out infinite; }
         .animate-wiggle:hover { animation: wiggle 0.4s ease-in-out infinite; }
@@ -560,14 +523,8 @@ export default function App() {
                 </p>
               );
             })}
-            <div ref={bottomRef} className="mt-1 inline-block h-3 w-2 animate-pulse bg-black-500" />
+            <div ref={bottomRef} className="mt-1 inline-block h-3 w-2 animate-pulse bg-gray-500" />
           </div>
-          <button
-            onClick={() => setStep(2)}
-            className="absolute bottom-6 right-6 z-50 text-[10px] text-black-500/30 underline hover:text-green-500"
-          >
-            [강제 접속하기]
-          </button>
         </div>
       )}
 
@@ -604,26 +561,32 @@ export default function App() {
         <>
           <CakeScene cakeStep={cakeStep} setIsLetterOpen={setIsLetterOpen} setStep={setStep} />
 
-          {/* 하늘색 편지창, 불필요한 디자인 요소 모두 제거, 닫기 버튼 최상단 배치 */}
           {isLetterOpen && (
-            <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/60 p-6 backdrop-blur-md">
-              <div className="relative w-full max-w-sm rounded-3xl border-4 border-sky-300 bg-white/95 p-8 text-center shadow-2xl">
-                {/* 닫기 버튼 터치 영역 및 z-index 상향으로 클릭 오류 해결 */}
+            <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/50 p-6 backdrop-blur-sm">
+              <div className="relative w-full max-w-sm rounded-[2rem] border-4 border-dashed border-sky-300 bg-[#f0f9ff] p-6 text-center shadow-[0_10px_40px_rgba(125,211,252,0.4)]">
+                
                 <button
                   onClick={() => setIsLetterOpen(false)}
-                  className="absolute right-4 top-3 z-[100000] p-2 text-4xl font-bold text-gray-400 transition-colors hover:text-red-500"
+                  className="absolute right-3 top-3 z-[100000] flex h-8 w-8 items-center justify-center rounded-full bg-white text-xl font-bold text-sky-400 shadow-sm transition-transform hover:scale-110 hover:bg-sky-50 hover:text-sky-600"
                 >
                   &times;
                 </button>
 
-                <div className="mt-4 rounded-2xl border border-sky-200 bg-[#e0f2fe] p-6 text-left text-[15px] leading-relaxed text-blue-900 shadow-inner">
-                  <p className="mb-3 font-bold text-blue-700">To. 사랑하는 주인님</p>
-                  <p>비밀번호를 완벽하게 맞췄네. 역시 최고야!</p>
-                  <br />
-                  <p>여기는 아가가 준비한 생일 축하 비밀 편지야.</p>
-                  <p>태어나줘서 고맙고, 매일 든든하고 소중한 </p>
-                  <p>오늘은 세상에서 제일 행복하고 달콤한 하루를 보내길 바라.</p>
-                  <p className="mt-5 text-right font-bold text-rose-500">- 아가가 -</p>
+                <div className="absolute -left-6 top-0 z-30 w-28 h-28 rotate-[-10deg] drop-shadow-sm select-none">
+                  <WhiteDog className="w-full h-full" />
+                </div>
+                
+                <HeartSprinkle color="#2563eb" className="absolute bottom-5 right-6 z-30 h-7 w-7 rotate-12 drop-shadow-sm" />
+
+                <div className="relative mt-12 rounded-2xl bg-white/60 p-5 text-left text-[15px] leading-[2rem] text-[#334155] shadow-sm border border-white/50 backdrop-blur-sm">
+                  <div className="absolute -top-4 left-1/2 h-7 w-24 -translate-x-1/2 rotate-[-3deg] rounded-sm bg-blue-600/90 shadow-sm backdrop-blur-sm" />
+                  <div className="absolute -top-3 left-[45%] h-6 w-16 -translate-x-1/2 rotate-[5deg] rounded-sm bg-sky-200/90 shadow-sm backdrop-blur-sm opacity-90" />
+                  
+                  <div className="relative z-10 font-bold tracking-wide">
+                    {letterContent.split('\n').map((line, idx) => (
+                      <p key={idx} className="min-h-[2.2rem] whitespace-pre-wrap">{line}</p>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -632,8 +595,8 @@ export default function App() {
       )}
 
       {step === 4 && (
-        <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-slate-900 p-6">
-          <div className="w-full max-w-sm space-y-6 rounded-2xl border border-blue-500/30 bg-slate-800 p-8 text-center shadow-2xl">
+        <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-slate-900 p-6 py-12">
+          <div className="w-full max-w-sm space-y-6 rounded-2xl border border-blue-500/30 bg-slate-800 p-8 text-center shadow-2xl my-auto">
             <div className="text-5xl">ADMIN</div>
             <h1 className="text-xl font-bold text-blue-400">관리자 모드 접속 성공</h1>
             <div className="space-y-3 rounded-xl border border-slate-700 bg-slate-900 p-5 text-left font-mono text-xs text-blue-300 sm:text-sm">
@@ -642,6 +605,17 @@ export default function App() {
               <p>{'>'} 이벤트 상태: <span className="text-green-400">준비 완료</span></p>
               <p>{'>'} 생일 축하 게이지: 100%</p>
             </div>
+            
+            <div className="mt-6 text-left">
+              <label className="mb-2 block text-sm font-bold text-sky-400">📝 편지 내용 수정</label>
+              <textarea
+                value={letterContent}
+                onChange={(e) => setLetterContent(e.target.value)}
+                className="h-44 w-full resize-none rounded-xl border border-blue-500/50 bg-slate-900 p-4 text-sm leading-relaxed text-sky-100 transition-colors focus:border-sky-400 focus:outline-none"
+                placeholder="편지 내용을 입력하세요..."
+              />
+            </div>
+
             <button
               onClick={() => setStep(1)}
               className="mt-4 w-full rounded-lg bg-blue-600 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-700"
