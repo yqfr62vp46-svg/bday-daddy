@@ -88,13 +88,22 @@ function WhiteDog({ className = "" }) {
   return (
     <div className={`relative ${className}`}>
       <svg viewBox="0 0 600 600" className="w-full h-full overflow-visible drop-shadow-md">
+        {/* 1. 하트 (맨 뒤) */}
         <path d="M300,180 C300,100 220,70 170,70 C90,70 50,130 50,210 C50,320 150,390 300,510 C450,390 550,320 550,210 C550,130 510,70 430,70 C380,70 300,100 300,180 Z" fill="#F8B8B8" stroke="#F08A8A" strokeWidth="6" />
-        <ellipse cx="300" cy="305" rx="160" ry="125" fill="#EEEEEE" stroke="#333333" strokeWidth="5" />
+        
+        {/* 2. 귀 */}
         <path d="M150,250 C100,280 90,350 130,390 C170,430 220,420 240,390 C220,330 200,290 150,250 Z" fill="#EEEEEE" stroke="#333333" strokeWidth="5" />
         <path d="M450,250 C500,280 510,350 470,390 C430,430 380,420 360,390 C380,330 400,290 450,250 Z" fill="#EEEEEE" stroke="#333333" strokeWidth="5" />
-        <path d="M220,400 L380,400 C390,430 395,500 380,540 C360,560 330,560 300,550 C270,560 240,560 220,540 C205,500 210,430 220,400 Z" fill="#EEEEEE" stroke="#333333" strokeWidth="5" />
-        <ellipse cx="197" cy="452" rx="22" ry="27" fill="#EEEEEE" stroke="#333333" strokeWidth="4" />
-        <ellipse cx="402" cy="452" rx="22" ry="27" fill="#EEEEEE" stroke="#333333" strokeWidth="4" />
+        
+        {/* 3. 몸통 (위로 살짝 이동) */}
+        <path d="M220,380 L380,380 C390,410 395,480 380,520 C360,540 330,540 300,530 C270,540 240,540 220,520 C205,480 210,410 220,380 Z" fill="#EEEEEE" stroke="#333333" strokeWidth="5" />
+        
+        {/* 4. 손(발) (몸통에 맞춰 위로 살짝 이동) */}
+        <ellipse cx="197" cy="432" rx="22" ry="27" fill="#EEEEEE" stroke="#333333" strokeWidth="4" />
+        <ellipse cx="402" cy="432" rx="22" ry="27" fill="#EEEEEE" stroke="#333333" strokeWidth="4" />
+        
+        {/* 5. 얼굴 (가장 맨 앞) */}
+        <ellipse cx="300" cy="305" rx="160" ry="125" fill="#EEEEEE" stroke="#333333" strokeWidth="5" />
         <ellipse cx="242" cy="312" rx="17" ry="27" fill="#444444" />
         <rect x="242" y="309" width="20" height="6" rx="3" fill="white" />
         <ellipse cx="357" cy="312" rx="17" ry="27" fill="#444444" />
@@ -576,11 +585,11 @@ export default function App() {
                   <WhiteDog className="w-full h-full" />
                 </div>
                 
-                <HeartSprinkle color="#2563eb" className="absolute bottom-5 right-6 z-30 h-7 w-7 rotate-12 drop-shadow-sm" />
+                <HeartSprinkle color="#ef233c" className="absolute bottom-5 right-6 z-30 h-7 w-7 rotate-12 drop-shadow-sm" />
 
                 <div className="relative mt-12 rounded-2xl bg-white/60 p-5 text-left text-[15px] leading-[2rem] text-[#334155] shadow-sm border border-white/50 backdrop-blur-sm">
                   <div className="absolute -top-4 left-1/2 h-7 w-24 -translate-x-1/2 rotate-[-3deg] rounded-sm bg-blue-600/90 shadow-sm backdrop-blur-sm" />
-                  <div className="absolute -top-3 left-[45%] h-6 w-16 -translate-x-1/2 rotate-[5deg] rounded-sm bg-sky-200/90 shadow-sm backdrop-blur-sm opacity-90" />
+                  <div className="absolute -top-4 left-[45%] h-8 w-22 -translate-x-1/2 rotate-[5deg] rounded-sm bg-sky-200/90 shadow-sm backdrop-blur-sm opacity-90" />
                   
                   <div className="relative z-10 font-bold tracking-wide">
                     {letterContent.split('\n').map((line, idx) => (
