@@ -83,7 +83,6 @@ function HeartSprinkle({ color = '#ff7096', className = '' }) {
   );
 }
 
-// 요청하신 XAML 디자인을 React SVG로 변환
 function WhiteDog({ className = "" }) {
   return (
     <div className={`relative ${className}`}>
@@ -587,7 +586,8 @@ export default function App() {
                 
                 <HeartSprinkle color="#ef233c" className="absolute bottom-5 right-6 z-30 h-7 w-7 rotate-12 drop-shadow-sm" />
 
-                <div className="relative mt-12 rounded-2xl bg-white/60 p-5 text-left text-[15px] leading-[2rem] text-[#334155] shadow-sm border border-white/50 backdrop-blur-sm">
+                {/* 편지지 그림자 더 진하게 입체감 강화 */}
+                <div className="relative mt-12 rounded-2xl bg-white/70 p-5 text-left text-[15px] leading-[2rem] text-[#334155] shadow-[0_20px_40px_rgba(0,0,0,0.25)] border border-white/60 backdrop-blur-md">
                   <div className="absolute -top-4 left-1/2 h-7 w-24 -translate-x-1/2 rotate-[-3deg] rounded-sm bg-blue-600/90 shadow-sm backdrop-blur-sm" />
                   <div className="absolute -top-4 left-[45%] h-8 w-22 -translate-x-1/2 rotate-[5deg] rounded-sm bg-sky-200/90 shadow-sm backdrop-blur-sm opacity-90" />
                   
