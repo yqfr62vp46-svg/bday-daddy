@@ -101,7 +101,7 @@ function WhiteDog({ className = "" }) {
         <ellipse cx="197" cy="432" rx="22" ry="27" fill="#EEEEEE" stroke="#333333" strokeWidth="4" />
         <ellipse cx="402" cy="432" rx="22" ry="27" fill="#EEEEEE" stroke="#333333" strokeWidth="4" />
         
-        {/* 5. 얼굴 (가장 맨 앞) */}
+        {/* 5. 얼굴 (가장 앞) */}
         <ellipse cx="300" cy="305" rx="160" ry="125" fill="#EEEEEE" stroke="#333333" strokeWidth="5" />
         <ellipse cx="242" cy="312" rx="17" ry="27" fill="#444444" />
         <rect x="242" y="309" width="20" height="6" rx="3" fill="white" />
@@ -268,11 +268,11 @@ function CakeScene({ cakeStep, setIsLetterOpen, setStep }) {
   return (
     <div className="relative min-h-[100dvh] overflow-x-hidden bg-gradient-to-b from-[#31446f] via-[#7f92bc] to-[#dbe4f5] p-5 pb-12 flex flex-col items-center justify-center text-center">
       
-      {/* 1. 은은한 케이크 후광 (Spotlight Glow) */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[40%] w-[90vw] max-w-[600px] h-[600px] bg-white/20 blur-[100px] rounded-full pointer-events-none" />
+      {/* 백그라운드 후광 (Spotlight Glow) */}
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_45%,rgba(255,255,255,0.25),transparent_65%)] pointer-events-none" />
 
       <div
-        className={`transition-all duration-1000 w-full z-10 ${
+        className={`relative z-10 transition-all duration-1000 w-full ${
           cakeStep >= 10 ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0'
         }`}
       >
@@ -286,7 +286,7 @@ function CakeScene({ cakeStep, setIsLetterOpen, setStep }) {
         </p>
       </div>
 
-      <div className="relative h-[440px] w-full max-w-[340px] shrink-0 select-none mt-4 z-10">
+      <div className="relative z-10 h-[440px] w-full max-w-[340px] shrink-0 select-none mt-4">
         <SyrupGlass show={cakeStep >= 5 && cakeStep < 8} pour={cakeStep >= 6 && cakeStep < 8} />
 
         <div
@@ -370,7 +370,7 @@ function CakeScene({ cakeStep, setIsLetterOpen, setStep }) {
         </div>
       </div>
 
-      <div className={`mt-4 h-24 flex items-end justify-center w-full transition-all duration-700 ${
+      <div className={`relative z-10 mt-4 h-24 flex items-end justify-center w-full transition-all duration-700 ${
         !isCandleLit ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0 pointer-events-none'
       }`}>
         <button
@@ -396,9 +396,16 @@ export default function App() {
   const [cakeStep, setCakeStep] = useState(0);
   const bottomRef = useRef(null);
 
-  const [letterContent, setLetterContent] = useState(
-    "To. 사랑하는 주인님\n\n비밀번호를 완벽하게 맞췄네. 역시 최고야!\n\n여기는 아가가 준비한 생일 축하 비밀 편지야.\n태어나줘서 고맙고, 매일 든든하고 소중한 우리 아빠!\n오늘은 세상에서 제일 행복하고 달콤한 하루를 보내길 바라.\n\n- 아가가 -"
-  );
+  // 로컬 스토리지에서 편지 내용 불러오기 (새로고침 유지 기능)
+  const [letterContent, setLetterContent] = useState(() => {
+    return localStorage.getItem('birthdayLetterContent') || 
+      "To. 사랑하는 주인님\n\n비밀번호를 완벽하게 맞췄네. 역시 최고야!\n\n여기는 아가가 준비한 생일 축하 비밀 편지야.\n태어나줘서 고맙고, 매일 든든하고 소중한 우리 아빠!\n오늘은 세상에서 제일 행복하고 달콤한 하루를 보내길 바라.\n\n- 아가가 -";
+  });
+
+  // 내용이 바뀔 때마다 로컬 스토리지에 저장
+  useEffect(() => {
+    localStorage.setItem('birthdayLetterContent', letterContent);
+  }, [letterContent]);
 
   const bootLines = useMemo(() => {
     const lines = [];
@@ -508,6 +515,7 @@ export default function App() {
 
   return (
     <>
+      {/* 글로벌 스타일 추가 (스크롤바 디자인 등) */}
       <style>{`
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
         @keyframes flame { 0%, 100% { transform: scale(1) rotate(-3deg); } 50% { transform: scale(1.15) rotate(4deg); } }
@@ -516,11 +524,8 @@ export default function App() {
         .animate-flame { animation: flame 0.5s ease-in-out infinite; }
         .animate-wiggle:hover { animation: wiggle 0.4s ease-in-out infinite; }
         
-        /* 편지 스크롤바 커스텀 디자인 */
         .letter-scroll::-webkit-scrollbar { width: 6px; }
-        .letter-scroll::-webkit-scrollbar-track { background: transparent; }
-        .letter-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        .letter-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .letter-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
       `}</style>
 
       {step === 1 && (
@@ -578,9 +583,11 @@ export default function App() {
         <>
           <CakeScene cakeStep={cakeStep} setIsLetterOpen={setIsLetterOpen} setStep={setStep} />
 
+          {/* 편지지 모달 영역 */}
           {isLetterOpen && (
             <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/50 p-6 backdrop-blur-sm">
-              <div className="relative w-full max-w-sm rounded-[2rem] border-4 border-dashed border-sky-300 bg-[#f0f9ff] p-6 text-center shadow-[0_10px_40px_rgba(125,211,252,0.4)]">
+              {/* 편지지 그림자(shadow) 아주 진하게 처리 */}
+              <div className="relative w-full max-w-sm rounded-[2rem] border-4 border-dashed border-sky-300 bg-[#f0f9ff] p-6 text-center shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
                 
                 <button
                   onClick={() => setIsLetterOpen(false)}
@@ -593,15 +600,16 @@ export default function App() {
                   <WhiteDog className="w-full h-full" />
                 </div>
                 
+                {/* 하트 스티커 색상 빨간색으로 변경 */}
                 <HeartSprinkle color="#ef233c" className="absolute bottom-5 right-6 z-30 h-7 w-7 rotate-12 drop-shadow-sm" />
 
-                {/* 편지지 그림자 더 진하게 입체감 강화 */}
-                <div className="relative mt-12 rounded-2xl bg-white/70 p-5 text-left text-[14px] leading-[2rem] text-[#334155] shadow-[0_20px_40px_rgba(0,0,0,0.25)] border border-white/60 backdrop-blur-md">
+                <div className="relative mt-12 rounded-2xl bg-white/70 p-5 text-left text-[14px] leading-[2rem] text-[#334155] shadow-xl border border-white/50 backdrop-blur-md">
                   <div className="absolute -top-4 left-1/2 h-7 w-24 -translate-x-1/2 rotate-[-3deg] rounded-sm bg-blue-600/90 shadow-sm backdrop-blur-sm" />
-                  <div className="absolute -top-4 left-[45%] h-8 w-22 -translate-x-1/2 rotate-[5deg] rounded-sm bg-sky-200/90 shadow-sm backdrop-blur-sm opacity-90" />
+                  {/* 하늘색 스티커 크기 확대 */}
+                  <div className="absolute -top-4 left-[45%] h-8 w-24 -translate-x-1/2 rotate-[5deg] rounded-sm bg-sky-200/90 shadow-sm backdrop-blur-sm opacity-90" />
                   
-                  {/* 스크롤 가능한 편지 내용 영역 */}
-                  <div className="relative z-10 font-bold tracking-wide max-h-[360px] overflow-y-auto letter-scroll pr-2">
+                  {/* 텍스트 크기 조절, 스크롤 가능 높이 증가 */}
+                  <div className="relative z-10 font-bold tracking-wide max-h-[360px] overflow-y-auto letter-scroll">
                     {letterContent.split('\n').map((line, idx) => (
                       <p key={idx} className="min-h-[2.2rem] whitespace-pre-wrap">{line}</p>
                     ))}
@@ -622,7 +630,7 @@ export default function App() {
               <p>{'>'} 접속자: 아가</p>
               <p>{'>'} 대상: Daddy</p>
               <p>{'>'} 이벤트 상태: <span className="text-green-400">준비 완료</span></p>
-              <p>{'>'} 생일 축하 게이지: 100%</p>
+              <p>{'>'} 데이터 저장소: <span className="text-sky-400">LocalStorage 연동 완료</span></p>
             </div>
             
             <div className="mt-6 text-left">
