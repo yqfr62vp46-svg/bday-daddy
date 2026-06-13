@@ -1,20 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 
-// 외부 라이브러리(canvas-confetti)를 동적으로 안전하게 불러오는 헬퍼 함수
-const triggerConfetti = (options) => {
-  if (window.confetti) {
-    window.confetti(options);
-    return;
-  }
-  const script = document.createElement('script');
-  script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js';
-  script.async = true;
-  script.onload = () => {
-    if (window.confetti) window.confetti(options);
-  };
-  document.body.appendChild(script);
-};
-
 const dropAnim = 'transform transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]';
 const popAnim = 'transform transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]';
 
@@ -32,15 +17,8 @@ function Strawberry({ className = '', delay = '0ms' }) {
             <stop offset="1" stopColor="#9f1239" />
           </linearGradient>
         </defs>
-        <path
-          fill="url(#strawberryFill)"
-          d="M24 4 C10 10, 2 22, 5 36 C8 50, 16 54, 24 54 C32 54, 40 50, 43 36 C46 22, 38 10, 24 4 Z"
-        />
-        <path
-          fill="#7f1d1d"
-          opacity="0.18"
-          d="M29 10 C37 16, 42 26, 40 38 C38 48, 30 52, 24 54 C33 54, 43 48, 45 34 C47 22, 37 12, 29 10 Z"
-        />
+        <path fill="url(#strawberryFill)" d="M24 4 C10 10, 2 22, 5 36 C8 50, 16 54, 24 54 C32 54, 40 50, 43 36 C46 22, 38 10, 24 4 Z" />
+        <path fill="#7f1d1d" opacity="0.18" d="M29 10 C37 16, 42 26, 40 38 C38 48, 30 52, 24 54 C33 54, 43 48, 45 34 C47 22, 37 12, 29 10 Z" />
         <circle cx="15" cy="22" r="1.2" fill="#fde68a" />
         <circle cx="33" cy="24" r="1.2" fill="#fde68a" />
         <circle cx="13" cy="35" r="1.2" fill="#fde68a" />
@@ -87,21 +65,12 @@ function WhiteDog({ className = "" }) {
   return (
     <div className={`relative ${className}`}>
       <svg viewBox="0 0 600 600" className="w-full h-full overflow-visible drop-shadow-md">
-        {/* 1. 하트 (맨 뒤) */}
         <path d="M300,180 C300,100 220,70 170,70 C90,70 50,130 50,210 C50,320 150,390 300,510 C450,390 550,320 550,210 C550,130 510,70 430,70 C380,70 300,100 300,180 Z" fill="#F8B8B8" stroke="#F08A8A" strokeWidth="6" />
-        
-        {/* 2. 귀 */}
         <path d="M150,250 C100,280 90,350 130,390 C170,430 220,420 240,390 C220,330 200,290 150,250 Z" fill="#EEEEEE" stroke="#333333" strokeWidth="5" />
         <path d="M450,250 C500,280 510,350 470,390 C430,430 380,420 360,390 C380,330 400,290 450,250 Z" fill="#EEEEEE" stroke="#333333" strokeWidth="5" />
-        
-        {/* 3. 몸통 (위로 살짝 이동) */}
         <path d="M220,380 L380,380 C390,410 395,480 380,520 C360,540 330,540 300,530 C270,540 240,540 220,520 C205,480 210,410 220,380 Z" fill="#EEEEEE" stroke="#333333" strokeWidth="5" />
-        
-        {/* 4. 손(발) (몸통에 맞춰 위로 살짝 이동) */}
         <ellipse cx="197" cy="432" rx="22" ry="27" fill="#EEEEEE" stroke="#333333" strokeWidth="4" />
         <ellipse cx="402" cy="432" rx="22" ry="27" fill="#EEEEEE" stroke="#333333" strokeWidth="4" />
-        
-        {/* 5. 얼굴 (가장 앞) */}
         <ellipse cx="300" cy="305" rx="160" ry="125" fill="#EEEEEE" stroke="#333333" strokeWidth="5" />
         <ellipse cx="242" cy="312" rx="17" ry="27" fill="#444444" />
         <rect x="242" y="309" width="20" height="6" rx="3" fill="white" />
@@ -126,13 +95,7 @@ function CreamTier({ width, height, top, zIndex, stepReady, syrupReady, delay = 
       className={`absolute left-1/2 -translate-x-1/2 ${dropAnim} ${
         stepReady ? 'translate-y-0 opacity-100' : '-translate-y-52 opacity-0'
       }`}
-      style={{
-        width: `min(${width}px, 88vw)`,
-        height: `${height}px`,
-        top: top,
-        zIndex: zIndex,
-        transitionDelay: delay,
-      }}
+      style={{ width: `min(${width}px, 88vw)`, height: `${height}px`, top: top, zIndex: zIndex, transitionDelay: delay }}
     >
       <svg className="absolute inset-0 h-full w-full overflow-visible" viewBox="0 0 320 160" preserveAspectRatio="none">
         <defs>
@@ -156,12 +119,8 @@ function CreamTier({ width, height, top, zIndex, stepReady, syrupReady, delay = 
       </svg>
 
       <svg
-        className={`absolute inset-0 h-full w-full overflow-visible transition-all duration-700 ease-out ${
-          syrupReady ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
-        }`}
-        viewBox="0 0 320 160"
-        preserveAspectRatio="none"
-        style={{ transformOrigin: 'center 44px' }}
+        className={`absolute inset-0 h-full w-full overflow-visible transition-all duration-700 ease-out ${syrupReady ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'}`}
+        viewBox="0 0 320 160" preserveAspectRatio="none" style={{ transformOrigin: 'center 44px' }}
       >
         <g className="drop-shadow-[0_5px_4px_rgba(40,15,10,0.3)]">
           <ellipse cx="160" cy="42" rx="145" ry="37" fill="#4a2116" />
@@ -179,16 +138,8 @@ function CreamTier({ width, height, top, zIndex, stepReady, syrupReady, delay = 
 
 function SyrupGlass({ show, pour }) {
   return (
-    <div
-      className={`absolute right-[-35px] top-[-30px] z-[60] h-40 w-36 transition-all duration-700 ease-out ${
-        show ? 'translate-y-0 opacity-100' : '-translate-y-16 opacity-0'
-      }`}
-    >
-      <div
-        className={`absolute right-0 top-0 h-28 w-32 transition-all duration-700 ease-out origin-[center_60%] ${
-          pour ? '-translate-x-12 translate-y-6 -rotate-[35deg]' : 'rotate-0'
-        }`}
-      >
+    <div className={`absolute right-[-35px] top-[-30px] z-[60] h-40 w-36 transition-all duration-700 ease-out ${show ? 'translate-y-0 opacity-100' : '-translate-y-16 opacity-0'}`}>
+      <div className={`absolute right-0 top-0 h-28 w-32 transition-all duration-700 ease-out origin-[center_60%] ${pour ? '-translate-x-12 translate-y-6 -rotate-[35deg]' : 'rotate-0'}`}>
         <svg viewBox="0 0 120 100" className="w-full h-full drop-shadow-[0_10px_15px_rgba(0,0,0,0.18)]">
           <defs>
             <linearGradient id="whiteCeramic" x1="20%" y1="0%" x2="80%" y2="100%">
@@ -206,14 +157,7 @@ function SyrupGlass({ show, pour }) {
           <path d="M 25 55 C 20 70, 30 85, 45 90" fill="none" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" opacity="0.8" />
         </svg>
       </div>
-
-      <svg
-        className={`absolute left-[-90px] top-[80px] h-[70px] w-24 origin-top transition-all duration-500 ease-in ${
-          pour ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
-        }`}
-        viewBox="0 0 60 100"
-        preserveAspectRatio="none"
-      >
+      <svg className={`absolute left-[-90px] top-[80px] h-[70px] w-24 origin-top transition-all duration-500 ease-in ${pour ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'}`} viewBox="0 0 60 100" preserveAspectRatio="none">
         <defs>
           <linearGradient id="syrupPour" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#35170f" />
@@ -224,6 +168,114 @@ function SyrupGlass({ show, pour }) {
         <path d="M 30 0 C 40 35, 10 65, 20 100" fill="none" stroke="url(#syrupPour)" strokeWidth="8" strokeLinecap="round" className="drop-shadow-[0_2px_4px_rgba(74,36,24,0.4)]" />
         <path d="M 29 5 C 38 35, 12 65, 20 95" fill="none" stroke="#7c3a21" strokeWidth="2" strokeLinecap="round" opacity="0.8" />
       </svg>
+    </div>
+  );
+}
+
+function StarryBackground() {
+  const stars = useMemo(() => {
+    const generatedStars = [];
+    let i = 0;
+    while (generatedStars.length < 60) {
+      const leftPos = Math.random() * 100;
+      const topPos = Math.random() * 100;
+      const isOverlappingText = topPos > 2 && topPos < 30 && leftPos > 10 && leftPos < 90;
+
+      if (!isOverlappingText) {
+        generatedStars.push({
+          id: i++,
+          left: `${leftPos}%`,
+          top: `${topPos}%`,
+          animationDelay: `${Math.random() * 4}s`,
+          size: `${Math.random() * 3 + 1}px`,
+          opacity: Math.random() * 0.5 + 0.3,
+        });
+      }
+    }
+    return generatedStars;
+  }, []);
+
+  const meteors = useMemo(() => Array.from({ length: 7 }).map((_, i) => ({
+    id: `meteor-${i}`,
+    left: `${Math.random() * 80 + 20}%`,
+    top: `${Math.random() * 30}%`,
+    animationDelay: `${Math.random() * 10}s`,
+    duration: `${Math.random() * 4 + 4}s`,
+  })), []);
+
+  return (
+    <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      {stars.map(star => (
+        <div
+          key={star.id}
+          className="absolute bg-white rounded-full animate-twinkle"
+          style={{ left: star.left, top: star.top, width: star.size, height: star.size, opacity: star.opacity, animationDelay: star.animationDelay }}
+        />
+      ))}
+      {meteors.map(meteor => (
+        <div
+          key={meteor.id}
+          className="absolute h-[2px] rounded-full bg-gradient-to-r from-white via-white/80 to-transparent shadow-[0_0_8px_2px_rgba(255,255,255,0.5)] animate-meteor"
+          style={{ left: meteor.left, top: meteor.top, animationDelay: meteor.animationDelay, animationDuration: meteor.duration }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function Balloon({ color, showDelay, flyDelay, show, isFlying, type = 'oval', rotate = '0deg', scale = 1, startX = 0, endX = 0 }) {
+  const renderBalloonShape = () => {
+    if (type === 'heart') {
+      return (
+        <>
+          <path d="M 50 100 C 10 70, 0 15, 25 10 C 40 7, 50 25, 50 30 C 50 25, 60 7, 75 10 C 100 15, 90 70, 50 100 Z" fill={color} />
+          <ellipse cx="32" cy="30" rx="6" ry="12" fill="#ffffff" opacity="0.35" transform="rotate(-30 32 30)" />
+        </>
+      );
+    } else if (type === 'star') {
+      return (
+        <>
+          <polygon points="50,5 62,35 95,35 68,55 78,88 50,70 22,88 32,55 5,35 38,35" fill={color} />
+          <path d="M 45 100 L 55 100 L 50 70 Z" fill={color} />
+          <ellipse cx="38" cy="40" rx="4" ry="10" fill="#ffffff" opacity="0.35" transform="rotate(-30 38 40)" />
+        </>
+      );
+    }
+    return (
+      <>
+        <ellipse cx="50" cy="50" rx="42" ry="52" fill={color} />
+        <path d="M 45 100 L 55 100 L 50 110 Z" fill={color} />
+        <ellipse cx="32" cy="35" rx="10" ry="18" fill="#ffffff" opacity="0.35" transform="rotate(-30 32 35)" />
+      </>
+    );
+  };
+
+  return (
+    <div className={`absolute bottom-0 left-1/2 origin-bottom`} style={{ zIndex: 10 }}>
+      <div
+        className={`transition-all duration-[5000ms] ease-in-out`}
+        style={{
+          transform: isFlying ? `translate(calc(-50% + ${endX}px), -150vh) scale(${scale})` : `translate(calc(-50% + ${startX}px), 0) scale(${scale})`,
+          transitionDelay: flyDelay,
+        }}
+      >
+        <div
+          className={`transition-all duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)]`}
+          style={{
+            opacity: show ? 0.95 : 0,
+            transform: show ? `rotate(${rotate})` : `rotate(${rotate}) translateY(40px) scale(0.5)`,
+            transitionDelay: showDelay,
+          }}
+        >
+          <div className="animate-float">
+            <svg viewBox="0 0 100 160" className="w-16 h-auto drop-shadow-md origin-bottom animate-sway">
+              <path d="M 50 160 Q 60 135 50 100" fill="none" stroke="#f1f5f9" strokeWidth="2" opacity="0.8"/>
+              <path d="M 45 100 L 55 100 L 50 110 Z" fill={color} />
+              {renderBalloonShape()}
+            </svg>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -240,13 +292,146 @@ function HeartLetter({ className = '' }) {
         <path d="M 0 0 L 60 45 L 120 0" fill="none" stroke="#e2e8f0" strokeWidth="1.5" />
       </svg>
       <div className="absolute left-1/2 top-[42px] -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_2px_4px_rgba(239,35,60,0.4)]">
-        <HeartSprinkle color="#ef233c" className="h-8 w-8 scale-[1.5]" />
+        <HeartSprinkle color="#ef233c" className="h-8 w-8 scale-[1.2]" />
       </div>
     </div>
   );
 }
 
-function CakeScene({ cakeStep, setIsLetterOpen, setStep }) {
+function AnimatedLetterModal({ letterContent, onClose }) {
+  const [phase, setPhase] = useState(0);
+
+  useEffect(() => {
+    const t1 = setTimeout(() => setPhase(1), 500);
+    const t2 = setTimeout(() => setPhase(2), 1200);
+    const t3 = setTimeout(() => setPhase(3), 2000);
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+  }, []);
+
+  return (
+    <div className={`fixed inset-0 z-[99999] flex items-center justify-center p-6 backdrop-blur-sm transition-colors duration-1000 ${phase >= 3 ? 'bg-black/50' : 'bg-black/30'}`}>
+      
+      {phase < 3 && (
+        <div className="relative w-72 h-48 drop-shadow-2xl" style={{ perspective: '1000px' }}>
+          <div className="absolute inset-0 bg-[#e2e8f0] rounded-lg shadow-inner" style={{ zIndex: 10 }}></div>
+          
+          <div 
+            className={`absolute left-3 right-3 bg-[#f0f9ff] rounded-t-xl border border-sky-200 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${
+              phase >= 2 ? '-top-24 h-64 opacity-100' : 'top-4 h-40 opacity-0'
+            }`}
+            style={{ zIndex: 20 }}
+          >
+            <div className="p-5 flex flex-col gap-3 opacity-60">
+               <div className="h-3 w-1/2 bg-sky-200 rounded-full"></div>
+               <div className="h-2 w-full bg-sky-200 rounded-full mt-4"></div>
+               <div className="h-2 w-5/6 bg-sky-200 rounded-full"></div>
+               <div className="h-2 w-4/6 bg-sky-200 rounded-full"></div>
+            </div>
+          </div>
+
+          <div className="absolute inset-0 z-30 pointer-events-none drop-shadow-sm rounded-lg overflow-hidden">
+            <svg viewBox="0 0 120 80" className="w-full h-full" preserveAspectRatio="none">
+              <path d="M 0 80 L 120 80 L 60 45 Z" fill="#cbd5e1" />
+              <path d="M 0 0 L 0 80 L 60 45 Z" fill="#e2e8f0" />
+              <path d="M 120 0 L 120 80 L 60 45 Z" fill="#e2e8f0" />
+              <path d="M 0 0 L 60 45 L 120 0" fill="none" stroke="#f8fafc" strokeWidth="1" opacity="0.8"/>
+            </svg>
+          </div>
+
+          <div 
+            className={`absolute top-0 left-0 w-full h-[60%] origin-top transition-transform duration-700 ease-in-out drop-shadow-md rounded-t-lg`}
+            style={{ transform: phase >= 1 ? 'rotateX(180deg)' : 'rotateX(0deg)', zIndex: phase >= 2 ? 15 : 40 }}
+          >
+            <svg viewBox="0 0 120 48" className="w-full h-full" preserveAspectRatio="none">
+              <path d="M 0 0 L 120 0 L 60 48 Z" fill="#f1f5f9" />
+              <path d="M 0 0 L 60 48 L 120 0" fill="none" stroke="#e2e8f0" strokeWidth="1" />
+            </svg>
+          </div>
+
+          <div 
+            className="absolute left-1/2 top-[50%] transition-all duration-500 ease-in-out"
+            style={{ zIndex: 45, transform: phase >= 1 ? 'translate(-50%, -50%) scale(0)' : 'translate(-50%, -50%) scale(1)', opacity: phase >= 1 ? 0 : 1 }}
+          >
+            <HeartSprinkle color="#ef233c" className="h-32 w-32 drop-shadow-[0_8px_10px_rgba(239,35,60,0.6)]" />
+          </div>
+        </div>
+      )}
+
+      {phase === 3 && (
+        <div className="relative w-full max-w-sm rounded-[2rem] border-4 border-dashed border-sky-300 bg-[#f0f9ff] p-6 text-center shadow-[0_20px_50px_rgba(0,0,0,0.5)] animate-fade-in-up">
+          <button onClick={onClose} className="absolute right-3 top-3 z-[100000] flex h-8 w-8 items-center justify-center rounded-full bg-white text-xl font-bold text-sky-400 shadow-sm transition-transform hover:scale-110 hover:bg-sky-50 hover:text-sky-600">
+            &times;
+          </button>
+          <div className="absolute -left-6 top-0 z-30 w-28 h-28 rotate-[-10deg] drop-shadow-sm select-none">
+            <WhiteDog className="w-full h-full" />
+          </div>
+          <HeartSprinkle color="#ef233c" className="absolute bottom-5 right-6 z-30 h-7 w-7 rotate-12 drop-shadow-sm" />
+
+          <div className="relative mt-12 rounded-2xl bg-white/70 p-5 text-left text-[14px] leading-[2rem] text-[#334155] shadow-xl border border-white/50 backdrop-blur-md">
+            <div className="absolute -top-4 left-1/2 h-7 w-24 -translate-x-1/2 rotate-[-3deg] rounded-sm bg-blue-600/90 shadow-sm backdrop-blur-sm" />
+            <div className="absolute -top-4 left-[45%] h-8 w-24 -translate-x-1/2 rotate-[5deg] rounded-sm bg-sky-200/90 shadow-sm backdrop-blur-sm opacity-90" />
+            <div className="relative z-10 font-bold tracking-wide max-h-[360px] overflow-y-auto letter-scroll">
+              {letterContent.split('\n').map((line, idx) => (
+                <p key={idx} className="min-h-[2.2rem] whitespace-pre-wrap">{line}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// 🎆 아름다운 단일 불꽃놀이: 텍스트의 중심에서 터지도록 위치와 크기 조정
+function FireworkEffect({ phase }) {
+  const sparks = useMemo(() => Array.from({ length: 60 }).map((_, i) => { // 불꽃 갯수 60개로 풍성하게 늘림
+    const angle = (i * 360) / 60;
+    const radian = angle * (Math.PI / 180);
+    // 텍스트를 충분히 커버할 수 있도록 폭발 반경(distance)을 더 넓게 조정
+    const distance = 100 + Math.random() * 160;
+    const tx = Math.cos(radian) * distance;
+    const ty = Math.sin(radian) * distance;
+    const colors = ['#fde047', '#fb7185', '#38bdf8', '#a78bfa', '#ffffff'];
+    return {
+      id: i,
+      tx: `${tx}px`,
+      ty: `${ty}px`,
+      color: colors[i % colors.length],
+      delay: `${Math.random() * 0.15}s`
+    };
+  }), []);
+
+  if (phase === 0) return null;
+
+  return (
+    // z-[5]로 설정하여 글씨(z-[50])보다 뒤, 케이크(z-10)보다 뒤에 배치
+    <div className="absolute left-1/2 top-1/2 z-[5] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+      {/* 1단계: 케이크 등 뒤쪽 저 아래(50vh)에서부터 쏘아 올려지는 빛 */}
+      {phase === 1 && (
+        <div 
+          className="w-1.5 h-8 rounded-full bg-yellow-100 shadow-[0_0_15px_5px_rgba(253,224,71,0.8)]"
+          style={{ animation: 'firework-ascend 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards' }}
+        />
+      )}
+      {/* 2단계: 도착 위치(텍스트 정중앙)에서 펑 터지는 불꽃 */}
+      {phase === 2 && sparks.map(s => (
+        <div
+          key={s.id}
+          className="absolute left-1/2 top-1/2 w-1.5 h-1.5 rounded-full -ml-[3px] -mt-[3px]"
+          style={{
+            backgroundColor: s.color,
+            boxShadow: `0 0 12px 3px ${s.color}`,
+            '--tx': s.tx,
+            '--ty': s.ty,
+            animation: `explode-spark 1.8s ease-out forwards ${s.delay}`
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function CakeScene({ cakeStep, setIsLetterOpen, setStep, fireworkPhase }) {
   const syrupReady = cakeStep >= 7;
   const sprinklesReady = cakeStep >= 8;
   const strawberriesReady = cakeStep >= 9;
@@ -257,56 +442,64 @@ function CakeScene({ cakeStep, setIsLetterOpen, setStep }) {
   const blowOutCandle = () => {
     if (isCandleLit) {
       setIsCandleLit(false);
-      triggerConfetti({
-        particleCount: 150,
-        spread: 80,
-        origin: { y: 0.4 },
-      });
     }
   };
+
+  const hiddenBalloons = useMemo(() => [
+    { id: 1, type: 'heart', color: '#fb7185', flyDelay: '0ms',   rotate: '-15deg', scale: 0.9,  startX: -30, endX: -600 },
+    { id: 2, type: 'oval',  color: '#fde047', flyDelay: '100ms', rotate: '-5deg',  scale: 1,    startX: -10, endX: -250 },
+    { id: 3, type: 'star',  color: '#7dd3fc', flyDelay: '50ms',  rotate: '8deg',   scale: 0.95, startX: 10,  endX: 150 },
+    { id: 4, type: 'oval',  color: '#4ade80', flyDelay: '150ms', rotate: '18deg',  scale: 0.85, startX: 25,  endX: 450 },
+    { id: 5, type: 'heart', color: '#a78bfa', flyDelay: '200ms', rotate: '25deg',  scale: 0.9,  startX: 40,  endX: 700 },
+  ], []);
 
   return (
     <div className="relative min-h-[100dvh] overflow-x-hidden bg-gradient-to-b from-[#31446f] via-[#7f92bc] to-[#dbe4f5] p-5 pb-12 flex flex-col items-center justify-center text-center">
       
-      {/* 백그라운드 후광 (Spotlight Glow) */}
+      <StarryBackground />
       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_45%,rgba(255,255,255,0.25),transparent_65%)] pointer-events-none" />
 
-      <div
-        className={`relative z-10 transition-all duration-1000 w-full ${
-          cakeStep >= 10 ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0'
-        }`}
-      >
-        <h1 className="text-4xl font-extrabold leading-tight tracking-normal text-white drop-shadow-[0_3px_10px_rgba(18,28,54,0.35)]">
-          Happy Birthday,
-          <br />
-          Daddy <span className="inline-block text-rose-500 drop-shadow-sm">❤️</span>
-        </h1>
-        <p className="mt-3 inline-block rounded-full bg-white/85 px-5 py-2 text-sm font-bold text-[#22345f] shadow-sm backdrop-blur-sm">
-          {!isCandleLit ? '비밀 편지 봉투가 하단에 열렸어!👇' : '소원을 빌고 케이크 위의 촛불을 눌러서 꺼봐!'}
-        </p>
+      {/* 텍스트 영역과 불꽃놀이를 묶어주는 래퍼 (불꽃이 정확히 텍스트 위치에서 터지도록 위치 공유) */}
+      <div className="relative w-full flex flex-col items-center justify-center">
+        {/* 🎆 빛 불꽃놀이 (케이크 z-10 보다 뒤인 z-5 설정) */}
+        <FireworkEffect phase={fireworkPhase} />
+
+        <div
+          className={`relative z-[50] transition-all duration-1000 w-full ${
+            cakeStep >= 11 ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0'
+          }`}
+        >
+          <h1 className="text-4xl font-extrabold leading-tight tracking-normal text-white drop-shadow-[0_3px_10px_rgba(18,28,54,0.35)]">
+            Happy Birthday,
+            <br />
+            Daddy <span className="inline-block text-rose-500 drop-shadow-sm">❤️</span>
+          </h1>
+          <p className="mt-3 inline-block rounded-full bg-white/85 px-5 py-2 text-sm font-bold text-[#22345f] shadow-sm backdrop-blur-sm">
+            {!isCandleLit ? '비밀 편지 봉투가 하단에 열렸어!👇' : '소원을 빌고 케이크 위의 촛불을 눌러서 꺼봐!'}
+          </p>
+        </div>
       </div>
 
       <div className="relative z-10 h-[440px] w-full max-w-[340px] shrink-0 select-none mt-4">
+        
+        <div className="absolute left-1/2 top-[220px] w-0 h-0 z-[5] pointer-events-none -translate-x-1/2">
+          {hiddenBalloons.map((b) => (
+            <Balloon
+              key={b.id} type={b.type} color={b.color} showDelay={b.flyDelay} flyDelay={b.flyDelay}
+              rotate={b.rotate} scale={b.scale} startX={b.startX} endX={b.endX}
+              show={!isCandleLit} isFlying={!isCandleLit}
+            />
+          ))}
+        </div>
+
         <SyrupGlass show={cakeStep >= 5 && cakeStep < 8} pour={cakeStep >= 6 && cakeStep < 8} />
 
-        <div
-          className={`absolute left-1/2 -translate-x-1/2 z-40 transition-all duration-700`}
-          style={{ top: '62px', width: '120px', height: '80px' }}
-        >
-          <div
-            className={`absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer ${popAnim} ${
-              candlesReady ? 'translate-y-0 opacity-100' : '-translate-y-16 opacity-0'
-            }`}
-            onClick={blowOutCandle}
-          >
+        <div className={`absolute left-1/2 -translate-x-1/2 z-40 transition-all duration-700`} style={{ top: '62px', width: '120px', height: '80px' }}>
+          <div className={`absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer ${popAnim} ${candlesReady ? 'translate-y-0 opacity-100' : '-translate-y-16 opacity-0'}`} onClick={blowOutCandle}>
             <Candle isLit={isCandleLit} delay="0ms" />
           </div>
 
-          <div
-            className={`absolute bottom-0 left-0 w-full h-full pointer-events-none ${popAnim} ${
-              strawberriesReady ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
-            }`}
-          >
+          <div className={`absolute bottom-0 left-0 w-full h-full pointer-events-none ${popAnim} ${strawberriesReady ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}>
             <div className="absolute pointer-events-auto" style={{ bottom: '8px', left: '12px' }}>
               <Strawberry className="-rotate-[18deg] scale-[0.95]" delay="0ms" />
             </div>
@@ -320,7 +513,6 @@ function CakeScene({ cakeStep, setIsLetterOpen, setStep }) {
         </div>
 
         <CreamTier width={158} height={92} top="100px" zIndex={30} stepReady={cakeStep >= 4} syrupReady={syrupReady} delay="80ms" />
-
         <CreamTier width={226} height={108} top="160px" zIndex={20} stepReady={cakeStep >= 3} syrupReady={syrupReady} delay="40ms">
           <div className={`flex gap-5 opacity-90 ${popAnim} ${sprinklesReady ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}>
             <HeartSprinkle color="#fb7185" className="translate-y-2 -rotate-12 scale-110" />
@@ -329,7 +521,6 @@ function CakeScene({ cakeStep, setIsLetterOpen, setStep }) {
             <HeartSprinkle color="#f472b6" className="-translate-y-3 -rotate-6 scale-90" />
           </div>
         </CreamTier>
-
         <CreamTier width={292} height={128} top="220px" zIndex={10} stepReady={cakeStep >= 2} syrupReady={syrupReady} delay="0ms">
           <div className={`flex gap-7 opacity-95 ${popAnim} ${sprinklesReady ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}>
             <HeartSprinkle color="#fb7185" className="-translate-y-2 rotate-12" />
@@ -340,12 +531,7 @@ function CakeScene({ cakeStep, setIsLetterOpen, setStep }) {
           </div>
         </CreamTier>
 
-        <div
-          className={`absolute left-1/2 -translate-x-1/2 top-[270px] z-0 transition-all duration-700 ${popAnim} ${
-            cakeStep >= 1 ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
-          }`}
-          style={{ width: 'min(380px, 100vw)', height: '160px' }}
-        >
+        <div className={`absolute left-1/2 -translate-x-1/2 top-[245px] z-0 transition-all duration-700 ${popAnim} ${cakeStep >= 1 ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`} style={{ width: 'min(380px, 100vw)', height: '160px' }}>
           <svg viewBox="0 0 380 160" className="w-full h-full drop-shadow-[0_10px_15px_rgba(15,25,47,0.25)]">
             <defs>
               <linearGradient id="standBase" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -370,13 +556,8 @@ function CakeScene({ cakeStep, setIsLetterOpen, setStep }) {
         </div>
       </div>
 
-      <div className={`relative z-10 mt-4 h-24 flex items-end justify-center w-full transition-all duration-700 ${
-        !isCandleLit ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0 pointer-events-none'
-      }`}>
-        <button
-          onClick={() => setIsLetterOpen(true)}
-          className="group flex flex-col items-center hover:scale-105 active:scale-95 transition-transform"
-        >
+      <div className={`relative z-10 mt-4 h-24 flex items-end justify-center w-full transition-all duration-700 ${!isCandleLit ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0 pointer-events-none'}`}>
+        <button onClick={() => setIsLetterOpen(true)} className="group flex flex-col items-center hover:scale-105 active:scale-95 transition-transform">
           <HeartLetter />
           <span className="mt-3 rounded-full bg-[#31446f] px-4 py-1.5 text-xs font-bold tracking-widest text-white shadow-lg group-hover:bg-[#1e2a47]">
             OPEN
@@ -394,15 +575,14 @@ export default function App() {
   const [terminalText, setTerminalText] = useState([]);
   const [isLetterOpen, setIsLetterOpen] = useState(false);
   const [cakeStep, setCakeStep] = useState(0);
+  const [fireworkPhase, setFireworkPhase] = useState(0);
   const bottomRef = useRef(null);
 
-  // 로컬 스토리지에서 편지 내용 불러오기 (새로고침 유지 기능)
   const [letterContent, setLetterContent] = useState(() => {
     return localStorage.getItem('birthdayLetterContent') || 
-      "To. 사랑하는 주인님\n\n비밀번호를 완벽하게 맞췄네. 역시 최고야!\n\n여기는 아가가 준비한 생일 축하 비밀 편지야.\n태어나줘서 고맙고, 매일 든든하고 소중한 우리 아빠!\n오늘은 세상에서 제일 행복하고 달콤한 하루를 보내길 바라.\n\n- 아가가 -";
+      "To. 사랑하는 주인님 이자 대디\n비밀번호를 완벽하게 맞췄네. 역시 최고야!\n\n여기는 아가가 준비한 생일 축하 비밀 편지야.\n태어나줘서 고맙고, 매일 든든하고 소중한 우리 아빠!\n오늘은 세상에서 제일 행복하고 달콤한 하루를 보내길 바라.\n\n- 아가가 -";
   });
 
-  // 내용이 바뀔 때마다 로컬 스토리지에 저장
   useEffect(() => {
     localStorage.setItem('birthdayLetterContent', letterContent);
   }, [letterContent]);
@@ -444,6 +624,7 @@ export default function App() {
       setTerminalText([]);
       setIsLetterOpen(false);
       setCakeStep(0);
+      setFireworkPhase(0);
 
       const intervalId = setInterval(() => {
         setTerminalText((prev) => {
@@ -484,18 +665,15 @@ export default function App() {
 
       const timers = schedule.map(({ s, t }) => setTimeout(() => setCakeStep(s), t));
 
-      const confettiTimer = setTimeout(() => {
-        triggerConfetti({
-          particleCount: 220,
-          spread: 135,
-          origin: { y: 0.36 },
-          zIndex: 9999,
-        });
-      }, 6300);
+      const f1 = setTimeout(() => setFireworkPhase(1), 6600);
+      const f2 = setTimeout(() => setFireworkPhase(2), 8100);
+      const tText = setTimeout(() => setCakeStep(11), 8300);
 
       return () => {
         timers.forEach(clearTimeout);
-        clearTimeout(confettiTimer);
+        clearTimeout(f1);
+        clearTimeout(f2);
+        clearTimeout(tText);
       };
     }
   }, [step]);
@@ -515,14 +693,40 @@ export default function App() {
 
   return (
     <>
-      {/* 글로벌 스타일 추가 (스크롤바 디자인 등) */}
       <style>{`
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
         @keyframes flame { 0%, 100% { transform: scale(1) rotate(-3deg); } 50% { transform: scale(1.15) rotate(4deg); } }
         @keyframes wiggle { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-10deg); } 75% { transform: rotate(10deg); } }
+        @keyframes sway { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+        @keyframes twinkle { 0%, 100% { opacity: 0.2; transform: scale(0.6); } 50% { opacity: 1; transform: scale(1.2); } }
+        @keyframes fade-in-up { 0% { opacity: 0; transform: translateY(20px) scale(0.95); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+        
+        @keyframes meteor {
+          0% { transform: translate(10vw, -10vw) rotate(135deg); opacity: 0; width: 0px; }
+          5% { opacity: 1; width: 120px; }
+          15% { transform: translate(-40vw, 40vw) rotate(135deg); opacity: 0; width: 0px; }
+          100% { transform: translate(-40vw, 40vw) rotate(135deg); opacity: 0; width: 0px; }
+        }
+
+        /* 🎆 케이크 등 뒤 아래(50vh)에서부터 시작해서 글씨의 중앙(0)까지 쏘아 올리는 애니메이션 */
+        @keyframes firework-ascend {
+          0% { transform: translateY(50vh) scaleY(2); opacity: 0; }
+          10% { opacity: 1; }
+          100% { transform: translateY(0) scaleY(1); opacity: 1; }
+        }
+        @keyframes explode-spark {
+          0% { transform: translate(0, 0) scale(1); opacity: 1; }
+          80% { opacity: 1; }
+          100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+        }
+        
         .animate-float { animation: float 3s ease-in-out infinite; }
         .animate-flame { animation: flame 0.5s ease-in-out infinite; }
         .animate-wiggle:hover { animation: wiggle 0.4s ease-in-out infinite; }
+        .animate-sway { animation: sway 4s ease-in-out infinite; }
+        .animate-twinkle { animation: twinkle 3s ease-in-out infinite; }
+        .animate-fade-in-up { animation: fade-in-up 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+        .animate-meteor { animation: meteor linear infinite; }
         
         .letter-scroll::-webkit-scrollbar { width: 6px; }
         .letter-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
@@ -539,11 +743,7 @@ export default function App() {
               if (line.includes('WARNING') || line.includes('TOP SECRET')) {
                 textColor = 'text-red-500 font-bold';
               }
-              return (
-                <p key={index} className={`${textColor} m-0 break-words text-[11px] leading-tight sm:text-xs`}>
-                  {line}
-                </p>
-              );
+              return <p key={index} className={`${textColor} m-0 break-words text-[11px] leading-tight sm:text-xs`}>{line}</p>;
             })}
             <div ref={bottomRef} className="mt-1 inline-block h-3 w-2 animate-pulse bg-gray-500" />
           </div>
@@ -556,24 +756,9 @@ export default function App() {
             <h2 className="animate-pulse text-lg font-bold text-red-500">[ACCESS DENIED]</h2>
             <p className="text-xs text-green-400 sm:text-sm">8자리 암호를 입력하십시오.</p>
             <form onSubmit={handlePasswordSubmit} className="space-y-6">
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className={`w-full border-b-2 bg-black py-2 text-center text-xl text-green-500 transition-all focus:outline-none ${
-                  error ? 'animate-bounce border-red-500' : 'border-green-500'
-                }`}
-                placeholder="********"
-                inputMode="numeric"
-                autoFocus
-              />
+              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className={`w-full border-b-2 bg-black py-2 text-center text-xl text-green-500 transition-all focus:outline-none ${error ? 'animate-bounce border-red-500' : 'border-green-500'}`} placeholder="********" inputMode="numeric" autoFocus />
               {error && <p className="text-xs text-red-500">경고: 접근 권한이 없습니다.</p>}
-              <button
-                type="submit"
-                className="mt-4 w-full rounded-lg border border-green-500 py-3 text-sm font-bold text-green-500 transition-colors hover:bg-green-500 hover:text-black"
-              >
-                접속 요청
-              </button>
+              <button type="submit" className="mt-4 w-full rounded-lg border border-green-500 py-3 text-sm font-bold text-green-500 transition-colors hover:bg-green-500 hover:text-black">접속 요청</button>
             </form>
           </div>
         </div>
@@ -581,43 +766,8 @@ export default function App() {
 
       {step === 3 && (
         <>
-          <CakeScene cakeStep={cakeStep} setIsLetterOpen={setIsLetterOpen} setStep={setStep} />
-
-          {/* 편지지 모달 영역 */}
-          {isLetterOpen && (
-            <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/50 p-6 backdrop-blur-sm">
-              {/* 편지지 그림자(shadow) 아주 진하게 처리 */}
-              <div className="relative w-full max-w-sm rounded-[2rem] border-4 border-dashed border-sky-300 bg-[#f0f9ff] p-6 text-center shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-                
-                <button
-                  onClick={() => setIsLetterOpen(false)}
-                  className="absolute right-3 top-3 z-[100000] flex h-8 w-8 items-center justify-center rounded-full bg-white text-xl font-bold text-sky-400 shadow-sm transition-transform hover:scale-110 hover:bg-sky-50 hover:text-sky-600"
-                >
-                  &times;
-                </button>
-
-                <div className="absolute -left-6 top-0 z-30 w-28 h-28 rotate-[-10deg] drop-shadow-sm select-none">
-                  <WhiteDog className="w-full h-full" />
-                </div>
-                
-                {/* 하트 스티커 색상 빨간색으로 변경 */}
-                <HeartSprinkle color="#ef233c" className="absolute bottom-5 right-6 z-30 h-7 w-7 rotate-12 drop-shadow-sm" />
-
-                <div className="relative mt-12 rounded-2xl bg-white/70 p-5 text-left text-[14px] leading-[2rem] text-[#334155] shadow-xl border border-white/50 backdrop-blur-md">
-                  <div className="absolute -top-4 left-1/2 h-7 w-24 -translate-x-1/2 rotate-[-3deg] rounded-sm bg-blue-600/90 shadow-sm backdrop-blur-sm" />
-                  {/* 하늘색 스티커 크기 확대 */}
-                  <div className="absolute -top-4 left-[45%] h-8 w-24 -translate-x-1/2 rotate-[5deg] rounded-sm bg-sky-200/90 shadow-sm backdrop-blur-sm opacity-90" />
-                  
-                  {/* 텍스트 크기 조절, 스크롤 가능 높이 증가 */}
-                  <div className="relative z-10 font-bold tracking-wide max-h-[360px] overflow-y-auto letter-scroll">
-                    {letterContent.split('\n').map((line, idx) => (
-                      <p key={idx} className="min-h-[2.2rem] whitespace-pre-wrap">{line}</p>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+          <CakeScene cakeStep={cakeStep} setIsLetterOpen={setIsLetterOpen} setStep={setStep} fireworkPhase={fireworkPhase} />
+          {isLetterOpen && <AnimatedLetterModal letterContent={letterContent} onClose={() => setIsLetterOpen(false)} />}
         </>
       )}
 
@@ -635,20 +785,10 @@ export default function App() {
             
             <div className="mt-6 text-left">
               <label className="mb-2 block text-sm font-bold text-sky-400">📝 편지 내용 수정</label>
-              <textarea
-                value={letterContent}
-                onChange={(e) => setLetterContent(e.target.value)}
-                className="h-44 w-full resize-none rounded-xl border border-blue-500/50 bg-slate-900 p-4 text-sm leading-relaxed text-sky-100 transition-colors focus:border-sky-400 focus:outline-none"
-                placeholder="편지 내용을 입력하세요..."
-              />
+              <textarea value={letterContent} onChange={(e) => setLetterContent(e.target.value)} className="h-44 w-full resize-none rounded-xl border border-blue-500/50 bg-slate-900 p-4 text-sm leading-relaxed text-sky-100 transition-colors focus:border-sky-400 focus:outline-none" placeholder="편지 내용을 입력하세요..." />
             </div>
 
-            <button
-              onClick={() => setStep(1)}
-              className="mt-4 w-full rounded-lg bg-blue-600 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-700"
-            >
-              로그아웃 및 초기화
-            </button>
+            <button onClick={() => setStep(1)} className="mt-4 w-full rounded-lg bg-blue-600 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-700">로그아웃 및 초기화</button>
           </div>
         </div>
       )}
