@@ -352,7 +352,8 @@ function AnimatedLetterModal({ letterContent, onClose }) {
             className="absolute left-1/2 top-[50%] transition-all duration-500 ease-in-out"
             style={{ zIndex: 45, transform: phase >= 1 ? 'translate(-50%, -50%) scale(0)' : 'translate(-50%, -50%) scale(1)', opacity: phase >= 1 ? 0 : 1 }}
           >
-            <HeartSprinkle color="#ef233c" className="h-32 w-32 drop-shadow-[0_8px_10px_rgba(239,35,60,0.6)]" />
+            {/* 하트 크기를 140px로 확실히 키웠습니다! */}
+            <HeartSprinkle color="#ef233c" className="w-[140px] h-[140px] drop-shadow-[0_8px_12px_rgba(239,35,60,0.5)]" />
           </div>
         </div>
       )}
@@ -382,51 +383,80 @@ function AnimatedLetterModal({ letterContent, onClose }) {
   );
 }
 
-// 🎆 아름다운 단일 불꽃놀이: 텍스트의 중심에서 터지도록 위치와 크기 조정
 function FireworkEffect({ phase }) {
-  const sparks = useMemo(() => Array.from({ length: 60 }).map((_, i) => { // 불꽃 갯수 60개로 풍성하게 늘림
-    const angle = (i * 360) / 60;
-    const radian = angle * (Math.PI / 180);
-    // 텍스트를 충분히 커버할 수 있도록 폭발 반경(distance)을 더 넓게 조정
-    const distance = 100 + Math.random() * 160;
-    const tx = Math.cos(radian) * distance;
-    const ty = Math.sin(radian) * distance;
-    const colors = ['#fde047', '#fb7185', '#38bdf8', '#a78bfa', '#ffffff'];
+  const sparks = useMemo(() => Array.from({ length: 110 }).map((_, i) => {
+    const angle = ((i * 360) / 110 + (Math.random() * 4 - 2)) * (Math.PI / 180);
+    const distance = 100 + Math.random() * 160; 
+    
+    const cpX = 200 + Math.cos(angle) * (distance * 0.75);
+    const cpY = 200 + Math.sin(angle) * (distance * 0.75);
+    
+    const endX = 200 + Math.cos(angle) * distance;
+    const endY = 200 + Math.sin(angle) * distance + (30 + Math.random() * 50); 
+    
+    const len = distance + 60; 
+
     return {
       id: i,
-      tx: `${tx}px`,
-      ty: `${ty}px`,
-      color: colors[i % colors.length],
-      delay: `${Math.random() * 0.15}s`
+      d: `M 200 200 Q ${cpX} ${cpY} ${endX} ${endY}`,
+      len: len,
+      delay: `${Math.random() * 0.15}s`,
+      duration: `${1.2 + Math.random() * 0.8}s`,
+      width: Math.random() * 2 + 1
     };
   }), []);
 
   if (phase === 0) return null;
 
   return (
-    // z-[5]로 설정하여 글씨(z-[50])보다 뒤, 케이크(z-10)보다 뒤에 배치
-    <div className="absolute left-1/2 top-1/2 z-[5] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-      {/* 1단계: 케이크 등 뒤쪽 저 아래(50vh)에서부터 쏘아 올려지는 빛 */}
+    <div className="absolute left-1/2 top-1/2 z-[5] -translate-x-1/2 -translate-y-1/2 pointer-events-none w-[400px] h-[400px]">
       {phase === 1 && (
         <div 
-          className="w-1.5 h-8 rounded-full bg-yellow-100 shadow-[0_0_15px_5px_rgba(253,224,71,0.8)]"
+          className="absolute left-[198px] top-[200px] w-1.5 h-12 rounded-full bg-[#ffffff] shadow-[0_0_18px_6px_rgba(254,240,138,0.9)]"
           style={{ animation: 'firework-ascend 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards' }}
         />
       )}
-      {/* 2단계: 도착 위치(텍스트 정중앙)에서 펑 터지는 불꽃 */}
-      {phase === 2 && sparks.map(s => (
-        <div
-          key={s.id}
-          className="absolute left-1/2 top-1/2 w-1.5 h-1.5 rounded-full -ml-[3px] -mt-[3px]"
-          style={{
-            backgroundColor: s.color,
-            boxShadow: `0 0 12px 3px ${s.color}`,
-            '--tx': s.tx,
-            '--ty': s.ty,
-            animation: `explode-spark 1.8s ease-out forwards ${s.delay}`
-          }}
-        />
-      ))}
+      
+      {phase === 2 && (
+        <svg viewBox="0 0 400 400" className="w-full h-full drop-shadow-[0_0_12px_rgba(255,255,255,0.8)] overflow-visible">
+          <circle 
+            cx="200" cy="200" r="15" fill="#ffffff" 
+            style={{ transformOrigin: '200px 200px', animation: 'explode-flash 0.6s ease-out forwards' }}
+          />
+          {sparks.map(s => (
+            <path
+              key={s.id}
+              d={s.d}
+              fill="none"
+              stroke="#fef08a" 
+              strokeWidth={s.width}
+              strokeLinecap="round"
+              style={{
+                '--len': s.len,
+                strokeDasharray: `calc(var(--len) * 0.35) calc(var(--len) * 2)`,
+                strokeDashoffset: `var(--len)`,
+                animation: `firework-willow ${s.duration} cubic-bezier(0.25, 1, 0.4, 1) forwards ${s.delay}`
+              }}
+            />
+          ))}
+          {sparks.slice(0, 55).map(s => (
+            <path
+              key={`core-${s.id}`}
+              d={s.d}
+              fill="none"
+              stroke="#ffffff"
+              strokeWidth={s.width * 0.6}
+              strokeLinecap="round"
+              style={{
+                '--len': s.len,
+                strokeDasharray: `calc(var(--len) * 0.2) calc(var(--len) * 2)`,
+                strokeDashoffset: `var(--len)`,
+                animation: `firework-willow ${s.duration} cubic-bezier(0.25, 1, 0.4, 1) forwards ${s.delay}`
+              }}
+            />
+          ))}
+        </svg>
+      )}
     </div>
   );
 }
@@ -459,9 +489,7 @@ function CakeScene({ cakeStep, setIsLetterOpen, setStep, fireworkPhase }) {
       <StarryBackground />
       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_45%,rgba(255,255,255,0.25),transparent_65%)] pointer-events-none" />
 
-      {/* 텍스트 영역과 불꽃놀이를 묶어주는 래퍼 (불꽃이 정확히 텍스트 위치에서 터지도록 위치 공유) */}
       <div className="relative w-full flex flex-col items-center justify-center">
-        {/* 🎆 빛 불꽃놀이 (케이크 z-10 보다 뒤인 z-5 설정) */}
         <FireworkEffect phase={fireworkPhase} />
 
         <div
@@ -708,16 +736,21 @@ export default function App() {
           100% { transform: translate(-40vw, 40vw) rotate(135deg); opacity: 0; width: 0px; }
         }
 
-        /* 🎆 케이크 등 뒤 아래(50vh)에서부터 시작해서 글씨의 중앙(0)까지 쏘아 올리는 애니메이션 */
         @keyframes firework-ascend {
           0% { transform: translateY(50vh) scaleY(2); opacity: 0; }
           10% { opacity: 1; }
           100% { transform: translateY(0) scaleY(1); opacity: 1; }
         }
-        @keyframes explode-spark {
-          0% { transform: translate(0, 0) scale(1); opacity: 1; }
-          80% { opacity: 1; }
-          100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+        
+        @keyframes firework-willow {
+          0% { stroke-dashoffset: var(--len); opacity: 1; }
+          40% { opacity: 1; }
+          100% { stroke-dashoffset: calc(var(--len) * -0.5); opacity: 0; }
+        }
+
+        @keyframes explode-flash {
+          0% { transform: scale(0.5); opacity: 1; }
+          100% { transform: scale(4); opacity: 0; }
         }
         
         .animate-float { animation: float 3s ease-in-out infinite; }
