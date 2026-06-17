@@ -309,15 +309,16 @@ function AnimatedLetterModal({ letterContent, onClose }) {
   }, []);
 
   return (
-    <div className={`fixed inset-0 z-[99999] flex items-center justify-center p-6 backdrop-blur-sm transition-colors duration-1000 ${phase >= 3 ? 'bg-black/50' : 'bg-black/30'}`}>
+    <div className={`fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 backdrop-blur-sm transition-colors duration-1000 ${phase >= 3 ? 'bg-black/50' : 'bg-black/30'}`}>
       
       {phase < 3 && (
-        <div className="relative w-72 h-48 drop-shadow-2xl" style={{ perspective: '1000px' }}>
+        // 봉투 크기를 기존보다 조금 더 크게 (w-80 h-52) 확대
+        <div className="relative w-80 h-52 drop-shadow-2xl" style={{ perspective: '1000px' }}>
           <div className="absolute inset-0 bg-[#e2e8f0] rounded-lg shadow-inner" style={{ zIndex: 10 }}></div>
           
           <div 
             className={`absolute left-3 right-3 bg-[#f0f9ff] rounded-t-xl border border-sky-200 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${
-              phase >= 2 ? '-top-24 h-64 opacity-100' : 'top-4 h-40 opacity-0'
+              phase >= 2 ? '-top-28 h-72 opacity-100' : 'top-4 h-44 opacity-0'
             }`}
             style={{ zIndex: 20 }}
           >
@@ -352,14 +353,14 @@ function AnimatedLetterModal({ letterContent, onClose }) {
             className="absolute left-1/2 top-[50%] transition-all duration-500 ease-in-out"
             style={{ zIndex: 45, transform: phase >= 1 ? 'translate(-50%, -50%) scale(0)' : 'translate(-50%, -50%) scale(1)', opacity: phase >= 1 ? 0 : 1 }}
           >
-            {/* 하트 크기를 140px로 확실히 키웠습니다! */}
             <HeartSprinkle color="#ef233c" className="w-[140px] h-[140px] drop-shadow-[0_8px_12px_rgba(239,35,60,0.5)]" />
           </div>
         </div>
       )}
 
       {phase === 3 && (
-        <div className="relative w-full max-w-sm rounded-[2rem] border-4 border-dashed border-sky-300 bg-[#f0f9ff] p-6 text-center shadow-[0_20px_50px_rgba(0,0,0,0.5)] animate-fade-in-up">
+        // 완성된 편지지 모달을 좌우로 넓힘 (max-w-[460px])
+        <div className="relative w-[95vw] max-w-[460px] rounded-[2rem] border-4 border-dashed border-sky-300 bg-[#f0f9ff] p-5 sm:p-8 text-center shadow-[0_20px_50px_rgba(0,0,0,0.5)] animate-fade-in-up">
           <button onClick={onClose} className="absolute right-3 top-3 z-[100000] flex h-8 w-8 items-center justify-center rounded-full bg-white text-xl font-bold text-sky-400 shadow-sm transition-transform hover:scale-110 hover:bg-sky-50 hover:text-sky-600">
             &times;
           </button>
@@ -368,12 +369,14 @@ function AnimatedLetterModal({ letterContent, onClose }) {
           </div>
           <HeartSprinkle color="#ef233c" className="absolute bottom-5 right-6 z-30 h-7 w-7 rotate-12 drop-shadow-sm" />
 
-          <div className="relative mt-12 rounded-2xl bg-white/70 p-5 text-left text-[14px] leading-[2rem] text-[#334155] shadow-xl border border-white/50 backdrop-blur-md">
+          <div className="relative mt-12 rounded-2xl bg-white/70 p-4 sm:p-6 text-left text-[12.5px] sm:text-[13.5px] leading-[1.8rem] text-[#334155] shadow-xl border border-white/50 backdrop-blur-md">
             <div className="absolute -top-4 left-1/2 h-7 w-24 -translate-x-1/2 rotate-[-3deg] rounded-sm bg-blue-600/90 shadow-sm backdrop-blur-sm" />
             <div className="absolute -top-4 left-[45%] h-8 w-24 -translate-x-1/2 rotate-[5deg] rounded-sm bg-sky-200/90 shadow-sm backdrop-blur-sm opacity-90" />
-            <div className="relative z-10 font-bold tracking-wide max-h-[360px] overflow-y-auto letter-scroll">
+            
+            {/* 스크롤 영역 높이 확대 및 글자 안 밀리게 break-keep 속성 추가 */}
+            <div className="relative z-10 font-bold tracking-wide max-h-[420px] overflow-y-auto overflow-x-hidden letter-scroll pr-2">
               {letterContent.split('\n').map((line, idx) => (
-                <p key={idx} className="min-h-[2.2rem] whitespace-pre-wrap">{line}</p>
+                <p key={idx} className="min-h-[1.8rem] whitespace-pre-wrap break-keep">{line}</p>
               ))}
             </div>
           </div>
@@ -606,13 +609,14 @@ export default function App() {
   const [fireworkPhase, setFireworkPhase] = useState(0);
   const bottomRef = useRef(null);
 
+  // 로컬 스토리지 이름도 변경하여 새로운 내용이 바로 적용되도록 하였습니다.
   const [letterContent, setLetterContent] = useState(() => {
-    return localStorage.getItem('birthdayLetterContent') || 
-      "To. 사랑하는 주인님 이자 대디\n비밀번호를 완벽하게 맞췄네. 역시 최고야!\n\n여기는 아가가 준비한 생일 축하 비밀 편지야.\n태어나줘서 고맙고, 매일 든든하고 소중한 우리 아빠!\n오늘은 세상에서 제일 행복하고 달콤한 하루를 보내길 바라.\n\n- 아가가 -";
+    return localStorage.getItem('birthdayLetterContent_v2') || 
+      "To. 사랑하는 주인님 이자 대디\n\n대디 생일 축하해요!!\n아가가 챙겨주는 3번째 생일이다??\n이번에는 특별한 편지를 준비해 봤어요!!\n너무나도 부족한 부분들이 많지만\n대디가 한 번도 안 받아본 생일 축하해주고 싶었어\n일주일 넘게 수정하고 추가 하고 열심히 만들었어요!\n마음에 들어 했으면 좋겠다!!\n요즘 회사도 너무 바쁘고 대디 쉬지도 못하고\n많이 힘들죠..?? 힘든데 아가 찡찡거리고 미안해,,\n그래도 아가 보고 웃고 행복해하고 충전해서 힘내요!!\n항상 대디 생일을 가장 먼저 축하해주고\n함께하는 사람이 아가였으면 좋겠어\n나도 대디한테 비싸고 좋은 거 해주고 싶은데\n못 해줘서 미안해요,,\n아가가 취업하면 더 좋은 거 많이 해주고 사줄게\n항상 받기만 해서 미안해,,\n아가는 대디 기분 좋게 행복하게 해주고 싶은데\n몬가 잘 못 해주는 거 같아서,, 속상해,,\n그래도 대디 사랑하고 좋아하는 마음은 아가가 더 클걸??\n더욱 노력하고 표현도 믾이 하꼐요!\n아가 마니 이뻐해주고 어디 두고 어디 가지마요!!\n항상 고맙고 좋아하고 사랑해요\n그리고 사랑한다는 말에는 생략된 뜻이 있대.\n(무슨 일이 있더라도) 사랑해\n\nfrom. 아가 강아지 보나";
   });
 
   useEffect(() => {
-    localStorage.setItem('birthdayLetterContent', letterContent);
+    localStorage.setItem('birthdayLetterContent_v2', letterContent);
   }, [letterContent]);
 
   const bootLines = useMemo(() => {
