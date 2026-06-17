@@ -500,27 +500,23 @@ function CakeScene({ cakeStep, setIsLetterOpen, setStep, fireworkPhase }) {
             cakeStep >= 11 ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0'
           }`}
         >
-          {/* 글자 크기는 기존(text-4xl) 유지, 3D 텍스트 섀도우 추가 */}
+          {}
           <h1 
             className="text-4xl font-extrabold leading-tight tracking-normal text-white"
             style={{
               textShadow: `
-                0 1px 0 #e2e8f0, 
-                0 2px 0 #cbd5e1, 
-                0 3px 0 #94a3b8, 
+                0 1px 0 #64748b, 
+                0 2px 0 #64748b, 
+                0 3px 0 #64748b, 
                 0 4px 0 #64748b, 
-                0 5px 0 #475569, 
-                0 6px 1px rgba(0,0,0,0.1), 
-                0 0 5px rgba(0,0,0,0.1), 
-                0 1px 3px rgba(0,0,0,0.3), 
-                0 3px 5px rgba(0,0,0,0.2), 
-                0 5px 10px rgba(0,0,0,0.25)
+                0 5px 0 #64748b, 
+                0 8px 10px rgba(0,0,0,0.2)
               `
             }}
           >
             Happy Birthday,
             <br />
-            Daddy <span className="inline-block text-rose-500 drop-shadow-md" style={{ textShadow: 'none' }}>❤️</span>
+            Daddy <span className="inline-block text-rose-500 drop-shadow-sm" style={{ textShadow: 'none' }}>❤️</span>
           </h1>
           <p className="mt-3 inline-block rounded-full bg-white/85 px-5 py-2 text-sm font-bold text-[#22345f] shadow-sm backdrop-blur-sm">
             {!isCandleLit ? '비밀 편지 봉투가 하단에 열렸어!👇' : '소원을 빌고 케이크 위의 촛불을 눌러서 꺼봐!'}
@@ -626,14 +622,13 @@ export default function App() {
   const [fireworkPhase, setFireworkPhase] = useState(0);
   const bottomRef = useRef(null);
 
-  // 로컬 스토리지 이름도 변경하여 새로운 내용이 바로 적용되도록 하였습니다.
   const [letterContent, setLetterContent] = useState(() => {
-    return localStorage.getItem('birthdayLetterContent_v2') || 
-      "To. 사랑하는 주인님 이자 대디\n\n대디 생일 축하해요!!\n아가가 챙겨주는 3번째 생일이다??\n이번에는 특별한 편지를 준비해 봤어요!!\n너무나도 부족한 부분들이 많지만\n대디가 한 번도 안 받아본 생일 축하해주고 싶었어\n일주일 넘게 수정하고 추가 하고 열심히 만들었어!\n마음에 들어 했으면 좋겠다!!\n요즘 회사도 너무 바쁘고 대디 쉬지도 못하고\n많이 힘들지..?? 힘든데 아가 찡찡거리고 미안해,,\n그래두 아가 보고 웃고 힐링하고 충전해서 힘내요!\n항상 대디 생일을 가장 먼저 축하해주고\n함께하는 사람이 아가였으면 좋겠어\n나도 대디한테 비싸고 좋은 거 해주고 싶은데\n못 해줘서 미안해요,,\n아가가 취업하면 더 좋은 거 많이 해주고 사줄게\n항상 받기만 해서 미안해,,\n아가는 대디 기분 좋게 행복하게 해주고 싶은데\n몬가 잘 못 해주는 거 같아서,, 속상해,,\n그래도 대디 사랑하고 좋아하는 마음은 아가가 더 클걸??\n더욱 노력하고 표현도 믾이 하께요!\n아가 마니 이뻐해주고 어디 두고 어디 가지마요!!\n항상 고맙고 좋아하고 사랑해요\n그리고 사랑한다는 말에는 생략된 뜻이 있대!\n(무슨 일이 있더라도) 사랑해\n\nfrom. 아가 강아지 보나";
+    return localStorage.getItem('birthdayLetterContent_v3') || 
+      "To. 사랑하는 주인님 이자 대디\n\n대디 생일 축하해요!!\n아가가 챙겨주는 3번째 생일이다??\n이번에는 특별한 편지를 준비해 봤어요!!\n너무나도 부족한 부분들이 많지만\n대디가 한 번도 안 받아본 생일 축하해주고 싶었어\n일주일 넘게 수정하고 추가 하고 열심히 만들었어!\n마음에 들어 했으면 좋겠다!!\n요즘 회사도 너무 바쁘고 대디 쉬지도 못하고 \n많이 힘들죠..?? 힘든데 아가 찡찡거리고 미안해,,\n그래두 아가 보고 웃고 힐링하고 충전해서 힘내요!!\n항상 대디 생일을 가장 먼저 축하해주고 \n함께하는 사람이 아가였으면 좋겠어\n나도 대디한테 비싸고 좋은 거 해주고 싶은데 \n못 해줘서 미안해요,,\n아가가 취업하면 더 좋은 거 많이 해주고 사줄게\n항상 받기만 해서 미안해,,\n아가는 대디 기분 좋게 행복하게 해주고 싶은데\n몬가 잘 못 해주는 거 같아서,, 속상해,,\n그래도 대디 사랑하고 좋아하는 마음은\n아가가 더 클걸?? 헤헿\n더욱 노력하고 표현도 많이 하께요!\n아가 마니 이뻐해주고 어디 두고 어디 가지마요!!\n항상 고맙고 좋아하고 사랑해요 \n그리고 사랑한다는 말에는 생략된 뜻이 있대\n(무슨 일이 있더라도) 사랑해\n\nfrom. 아가 강아지 보나";
   });
 
   useEffect(() => {
-    localStorage.setItem('birthdayLetterContent_v2', letterContent);
+    localStorage.setItem('birthdayLetterContent_v3', letterContent);
   }, [letterContent]);
 
   const bootLines = useMemo(() => {
