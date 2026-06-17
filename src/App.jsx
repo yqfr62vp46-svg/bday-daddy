@@ -40,10 +40,14 @@ function Candle({ className = '', delay = '0ms', isLit = true }) {
       {isLit ? (
         <div className="h-6 w-5 rotate-45 rounded-[70%_15%_70%_45%] bg-gradient-to-br from-yellow-200 via-amber-300 to-orange-500 shadow-[0_0_20px_rgba(251,191,36,0.95)] animate-flame" />
       ) : (
-        <div className="h-6 w-5 flex items-center justify-center">
-          <svg className="h-5 w-5 text-gray-300 animate-bounce opacity-70" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C10.9 2 10 2.9 10 4s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-3 5c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+        <div className="relative flex h-6 w-5 flex-col items-center justify-end pb-1">
+          {/* 🕯️ 연기 모락모락 효과 */}
+          <svg className="absolute bottom-3 left-1/2 h-16 w-10 -translate-x-1/2 pointer-events-none" viewBox="0 0 30 60">
+            <path className="animate-smoke-1" d="M15,60 Q5,40 15,20 T15,0" fill="none" stroke="#cbd5e1" strokeWidth="2.5" strokeLinecap="round" opacity="0" />
+            <path className="animate-smoke-2" d="M15,60 Q25,45 15,30 T15,5" fill="none" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" opacity="0" />
+            <path className="animate-smoke-3" d="M15,60 Q10,50 15,35 T15,10" fill="none" stroke="#e2e8f0" strokeWidth="3" strokeLinecap="round" opacity="0" />
           </svg>
+          <div className="h-2.5 w-[3px] rounded-full bg-slate-700" />
         </div>
       )}
       <div className="-mt-1 h-16 w-5 rounded-sm border border-rose-200 bg-white shadow-[inset_0_0_6px_rgba(244,114,182,0.18)]">
@@ -312,7 +316,6 @@ function AnimatedLetterModal({ letterContent, onClose }) {
     <div className={`fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 backdrop-blur-sm transition-colors duration-1000 ${phase >= 3 ? 'bg-black/50' : 'bg-black/30'}`}>
       
       {phase < 3 && (
-        // 봉투 크기를 기존보다 조금 더 크게 (w-80 h-52) 확대
         <div className="relative w-80 h-52 drop-shadow-2xl" style={{ perspective: '1000px' }}>
           <div className="absolute inset-0 bg-[#e2e8f0] rounded-lg shadow-inner" style={{ zIndex: 10 }}></div>
           
@@ -359,7 +362,6 @@ function AnimatedLetterModal({ letterContent, onClose }) {
       )}
 
       {phase === 3 && (
-        // 완성된 편지지 모달을 좌우로 넓힘 (max-w-[460px])
         <div className="relative w-[95vw] max-w-[460px] rounded-[2rem] border-4 border-dashed border-sky-300 bg-[#f0f9ff] p-5 sm:p-8 text-center shadow-[0_20px_50px_rgba(0,0,0,0.5)] animate-fade-in-up">
           <button onClick={onClose} className="absolute right-3 top-3 z-[100000] flex h-8 w-8 items-center justify-center rounded-full bg-white text-xl font-bold text-sky-400 shadow-sm transition-transform hover:scale-110 hover:bg-sky-50 hover:text-sky-600">
             &times;
@@ -372,8 +374,6 @@ function AnimatedLetterModal({ letterContent, onClose }) {
           <div className="relative mt-12 rounded-2xl bg-white/70 p-4 sm:p-6 text-left text-[12.5px] sm:text-[13.5px] leading-[1.8rem] text-[#334155] shadow-xl border border-white/50 backdrop-blur-md">
             <div className="absolute -top-4 left-1/2 h-7 w-24 -translate-x-1/2 rotate-[-3deg] rounded-sm bg-blue-600/90 shadow-sm backdrop-blur-sm" />
             <div className="absolute -top-4 left-[45%] h-8 w-24 -translate-x-1/2 rotate-[5deg] rounded-sm bg-sky-200/90 shadow-sm backdrop-blur-sm opacity-90" />
-            
-            {/* 스크롤 영역 높이 확대 및 글자 안 밀리게 break-keep 속성 추가 */}
             <div className="relative z-10 font-bold tracking-wide max-h-[420px] overflow-y-auto overflow-x-hidden letter-scroll pr-2">
               {letterContent.split('\n').map((line, idx) => (
                 <p key={idx} className="min-h-[1.8rem] whitespace-pre-wrap break-keep">{line}</p>
@@ -500,23 +500,10 @@ function CakeScene({ cakeStep, setIsLetterOpen, setStep, fireworkPhase }) {
             cakeStep >= 11 ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0'
           }`}
         >
-          {}
-          <h1 
-            className="text-4xl font-extrabold leading-tight tracking-normal text-white"
-            style={{
-              textShadow: `
-                0 1px 0 #64748b, 
-                0 2px 0 #64748b, 
-                0 3px 0 #64748b, 
-                0 4px 0 #64748b, 
-                0 5px 0 #64748b, 
-                0 8px 10px rgba(0,0,0,0.2)
-              `
-            }}
-          >
+          <h1 className="text-4xl font-extrabold leading-tight tracking-normal text-white drop-shadow-[0_3px_10px_rgba(18,28,54,0.35)]">
             Happy Birthday,
             <br />
-            Daddy <span className="inline-block text-rose-500 drop-shadow-sm" style={{ textShadow: 'none' }}>❤️</span>
+            Daddy <span className="inline-block text-rose-500 drop-shadow-sm">❤️</span>
           </h1>
           <p className="mt-3 inline-block rounded-full bg-white/85 px-5 py-2 text-sm font-bold text-[#22345f] shadow-sm backdrop-blur-sm">
             {!isCandleLit ? '비밀 편지 봉투가 하단에 열렸어!👇' : '소원을 빌고 케이크 위의 촛불을 눌러서 꺼봐!'}
@@ -624,7 +611,7 @@ export default function App() {
 
   const [letterContent, setLetterContent] = useState(() => {
     return localStorage.getItem('birthdayLetterContent_v3') || 
-      "To. 사랑하는 주인님 이자 대디\n\n대디 생일 축하해요!!\n아가가 챙겨주는 3번째 생일이다??\n이번에는 특별한 편지를 준비해 봤어요!!\n너무나도 부족한 부분들이 많지만\n대디가 한 번도 안 받아본 생일 축하해주고 싶었어\n일주일 넘게 수정하고 추가 하고 열심히 만들었어!\n마음에 들어 했으면 좋겠다!!\n요즘 회사도 너무 바쁘고 대디 쉬지도 못하고 \n많이 힘들죠..?? 힘든데 아가 찡찡거리고 미안해,,\n그래두 아가 보고 웃고 힐링하고 충전해서 힘내요!!\n항상 대디 생일을 가장 먼저 축하해주고 \n함께하는 사람이 아가였으면 좋겠어\n나도 대디한테 비싸고 좋은 거 해주고 싶은데 \n못 해줘서 미안해요,,\n아가가 취업하면 더 좋은 거 많이 해주고 사줄게\n항상 받기만 해서 미안해,,\n아가는 대디 기분 좋게 행복하게 해주고 싶은데\n몬가 잘 못 해주는 거 같아서,, 속상해,,\n그래도 대디 사랑하고 좋아하는 마음은\n아가가 더 클걸?? 헤헿\n더욱 노력하고 표현도 많이 하께요!\n아가 마니 이뻐해주고 어디 두고 어디 가지마요!!\n항상 고맙고 좋아하고 사랑해요 \n그리고 사랑한다는 말에는 생략된 뜻이 있대\n(무슨 일이 있더라도) 사랑해\n\nfrom. 아가 강아지 보나";
+      "To. 사랑하는 주인님 이자 대디\n\n대디 생일 축하해요!!\n아가가 챙겨주는 3번째 생일이다??\n이번에는 특별한 편지를 준비해 봤어요!!\n너무나도 부족한 부분들이 많지만\n대디가 한 번도 안 받아본 생일 축하해주고 싶었어\n일주일 넘게 수정하고 추가 하고 열심히 만들었어!\n마음에 들어 했으면 좋겠다!!\n요즘 회사도 너무 바쁘고 대디 쉬지도 못하고 \n많이 힘들죠..?? 힘든데 아가 찡찡거리고 미안해,,\n그래두 아가 보고 웃고 힐링하고 충전해서 힘내요!!\n항상 대디 생일을 가장 먼저 축하해주고 \n함께하는 사람이 아가였으면 좋겠어\n나도 대디한테 비싸고 좋은 거 해주고 싶은데 \n못 해줘서 미안해요,,\n아가가 취업하면 더 좋은 거 많이 해주고 사줄게\n항상 받기만 해서 미안해,,\n아가는 대디 기분 좋게 행복하게 해주고 싶은데\n몬가 잘 못 해주는 거 같아서,, 속상해,,\n그래도 대디 사랑하고 좋아하는 마음은 아가가 더 클걸??\n더욱 노력하고 표현도 많이 하께요!\n아가 마니 이뻐해주고 어디 두고 어디 가지마요!!\n항상 고맙고 좋아하고 사랑해요 \n그리고 사랑한다는 말에는 생략된 뜻이 있대\n(무슨 일이 있더라도) 사랑해\n\nfrom. 아가 강아지 보나";
   });
 
   useEffect(() => {
@@ -728,6 +715,9 @@ export default function App() {
       setStep(3);
     } else if (password === '0420') {
       setStep(4);
+    } else if (password === '20050711') {
+      // 🎁 새로운 이스터 에그 비밀번호 (아가 생일)
+      setStep(5);
     } else {
       setError(true);
       setPassword('');
@@ -768,10 +758,18 @@ export default function App() {
           0% { transform: scale(0.5); opacity: 1; }
           100% { transform: scale(4); opacity: 0; }
         }
+
+        @keyframes smoke-rise {
+          0% { opacity: 0; transform: translateY(0) scale(0.8) rotate(0deg); filter: blur(1px); }
+          20% { opacity: 0.7; transform: translateY(-5px) scale(1) rotate(2deg); filter: blur(2px); }
+          100% { opacity: 0; transform: translateY(-40px) scale(1.5) rotate(-5deg); filter: blur(5px); }
+        }
+        .animate-smoke-1 { animation: smoke-rise 2s ease-out forwards; }
+        .animate-smoke-2 { animation: smoke-rise 2.5s ease-out 0.2s forwards; }
+        .animate-smoke-3 { animation: smoke-rise 3s ease-out 0.4s forwards; }
         
         .animate-float { animation: float 3s ease-in-out infinite; }
         .animate-flame { animation: flame 0.5s ease-in-out infinite; }
-        .animate-wiggle:hover { animation: wiggle 0.4s ease-in-out infinite; }
         .animate-sway { animation: sway 4s ease-in-out infinite; }
         .animate-twinkle { animation: twinkle 3s ease-in-out infinite; }
         .animate-fade-in-up { animation: fade-in-up 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards; }
@@ -838,6 +836,41 @@ export default function App() {
             </div>
 
             <button onClick={() => setStep(1)} className="mt-4 w-full rounded-lg bg-blue-600 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-700">로그아웃 및 초기화</button>
+          </div>
+        </div>
+      )}
+
+      {/* 🎁 STEP 5: 새로운 이스터 에그 화면 (비밀번호: 20050711) - 하늘색(Sky Blue) 톤 변경 */}
+      {step === 5 && (
+        <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-[#f0f9ff] p-6 overflow-hidden">
+          <div className="relative z-10 w-full max-w-sm rounded-[2rem] border-4 border-dashed border-sky-400 bg-white p-8 text-center shadow-[0_20px_50px_rgba(14,165,233,0.25)]">
+            <div className="absolute -top-14 left-1/2 -translate-x-1/2 text-[5rem] animate-bounce drop-shadow-md">
+              🤪
+            </div>
+            
+            <h1 className="mt-6 text-[1.4rem] font-black text-sky-500 drop-shadow-sm">
+              삐빅-! 바보 대디 검거!! 🚨
+            </h1>
+            
+            <div className="mt-6 rounded-2xl bg-sky-50 p-6 text-sky-700 space-y-3 font-bold text-[14px] leading-relaxed border border-sky-100 shadow-inner">
+              <p className="text-sky-600 text-[15px]">대디 생일 냅두고 왜 아가 생일 쳐요?!</p>
+              <p className="text-3xl mt-5">메롱메롱 😛</p>
+            </div>
+            
+            <div className="mt-8 flex justify-center items-center space-x-6">
+              <div className="animate-[spin_4s_linear_infinite]"><WhiteDog className="w-14 h-14" /></div>
+              <div className="animate-bounce"><HeartSprinkle color="#ef233c" className="w-10 h-10" /></div>
+            </div>
+
+            <button
+              onClick={() => {
+                setStep(2);
+                setPassword('');
+              }}
+              className="mt-8 w-full rounded-xl bg-sky-500 py-4 text-sm font-black tracking-wide text-white shadow-lg transition-transform hover:scale-105 active:scale-95 hover:bg-sky-600"
+            >
+              돌아가기 💦
+            </button>
           </div>
         </div>
       )}
